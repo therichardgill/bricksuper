@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrickSuper Brand Guidelines v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bs-orange: #E8611A;
+    --bs-orange-dark: #C44E10;
+    --bs-orange-900: #922E04;
+    --bs-orange-light: #F4924E;
+    --bs-orange-pale: #FDF0E8;
+    --bs-orange-mid: #FAD5BC;
+    --bs-charcoal: #1C1C1E;
+    --bs-slate: #3D3D4A;
+    --bs-mid: #6B6B7A;
+    --bs-muted: #9B9BAA;
+    --bs-border: #E2E1EC;
+    --bs-bg: #FAFAF8;
+    --bs-white: #FFFFFF;
+    --bs-green: #1A7A4A;
+    --bs-green-pale: #E8F5EE;
+    --bs-amber: #C4780E;
+    --bs-amber-pale: #FDF3E0;
+    --bs-red: #B03020;
+    --bs-red-pale: #FCEEEB;
+    --bs-red-dark: #7A2015;
+    --bs-green-dark: #14542F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bs-bg);
+    color: var(--bs-charcoal);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── Layout ────────────────────────────────── */
+  .page { max-width: 880px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+  /* ── Nav bar ───────────────────────────────── */
+  nav {
+    display: flex; align-items: center; gap: 12px;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--bs-border);
+    background: var(--bs-white);
+    position: sticky; top: 0; z-index: 100;
+    max-width: 100%;
+  }
+  .nav-inner { display: flex; align-items: center; gap: 12px; max-width: 880px; margin: 0 auto; width: 100%; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-wordmark { font-size: 15px; font-weight: 600; color: var(--bs-charcoal); letter-spacing: -0.3px; }
+  .nav-version { font-size: 12px; color: var(--bs-muted); margin-left: auto; }
+
+  /* ── Sections ──────────────────────────────── */
+  .section { padding: 4rem 0 0; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--bs-orange); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 32px; font-weight: 400; line-height: 1.15;
+    color: var(--bs-charcoal); margin-bottom: 0.75rem;
+  }
+  .section-desc {
+    font-size: 15px; color: var(--bs-mid); line-height: 1.75;
+    max-width: 600px; margin-bottom: 2rem;
+  }
+  hr.divider {
+    border: none; border-top: 1px solid var(--bs-border); margin: 0;
+  }
+
+  /* ── Hero ──────────────────────────────────── */
+  .hero {
+    background: var(--bs-charcoal);
+    border-radius: 16px; padding: 3.5rem;
+    margin: 3rem 0; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -40px; left: 30%;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--bs-orange); margin-bottom: 1rem;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 42px; font-weight: 400; color: #FFFFFF;
+    line-height: 1.12; margin-bottom: 1.25rem;
+  }
+  .hero-title em { color: var(--bs-orange-light); font-style: normal; }
+  .hero-body { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 560px; }
+  .hero-meta { margin-top: 2rem; font-size: 12px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; }
+
+  /* ── Logo grid ─────────────────────────────── */
+  .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .logo-card {
+    border: 1px solid var(--bs-border); border-radius: 14px;
+    padding: 2rem 1.5rem; display: flex; flex-direction: column;
+    align-items: center; gap: 1rem;
+  }
+  .logo-card.lc-light { background: var(--bs-white); }
+  .logo-card.lc-dark  { background: var(--bs-charcoal); border-color: #3a3a3a; }
+  .logo-card.lc-orange{ background: var(--bs-orange); border-color: var(--bs-orange-dark); }
+  .logo-card.lc-pale  { background: var(--bs-orange-pale); border-color: var(--bs-orange-mid); }
+  .logo-card-label { font-size: 11px; color: var(--bs-muted); }
+  .lc-dark .logo-card-label, .lc-orange .logo-card-label { color: rgba(255,255,255,0.4); }
+  .logo-lockup { display: flex; align-items: center; gap: 10px; }
+  .logo-text-main { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; }
+  .logo-text-sub { font-size: 10px; letter-spacing: 0.8px; margin-top: 1px; }
+
+  /* ── Colour ────────────────────────────────── */
+  .color-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .color-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .swatch { border-radius: 10px; overflow: hidden; border: 1px solid var(--bs-border); }
+  .swatch-block { height: 72px; }
+  .swatch-info { padding: 10px 12px; background: var(--bs-white); }
+  .swatch-name { font-size: 12px; font-weight: 500; color: var(--bs-charcoal); }
+  .swatch-hex { font-size: 11px; color: var(--bs-mid); font-family: 'Courier New', monospace; }
+  .tint-row { display: flex; gap: 4px; margin: 6px 0 4px; }
+  .tint-block { flex: 1; height: 28px; border-radius: 4px; }
+  .tint-labels { display: flex; gap: 4px; margin-bottom: 1.5rem; }
+  .tint-label { flex: 1; font-size: 10px; color: var(--bs-muted); text-align: center; }
+
+  /* ── Typography specimens ──────────────────── */
+  .type-specimen {
+    border: 1px solid var(--bs-border); border-radius: 12px;
+    padding: 1.5rem; margin-bottom: 1rem; background: var(--bs-white);
+  }
+  .type-label {
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--bs-mid); margin-bottom: 0.75rem; font-weight: 500;
+  }
+  .t-display { font-family: 'DM Serif Display', serif; font-size: 38px; font-weight: 400; line-height: 1.1; }
+  .t-h2 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; }
+  .t-h3 { font-size: 18px; font-weight: 600; }
+  .t-body { font-size: 15px; color: var(--bs-mid); line-height: 1.75; }
+  .t-small { font-size: 12px; color: var(--bs-mid); line-height: 1.65; font-weight: 300; }
+  .t-caption { font-size: 11px; color: var(--bs-muted); letter-spacing: 0.3px; margin-top: 6px; }
+
+  /* ── Voice cards ───────────────────────────── */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .voice-card { border-radius: 12px; padding: 1.25rem; }
+  .voice-card.do-card   { background: var(--bs-green-pale); border: 1px solid #A8D9BC; }
+  .voice-card.dont-card { background: var(--bs-red-pale);   border: 1px solid #EEB0A0; }
+  .badge-label {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 20px; margin-bottom: 10px;
+  }
+  .bl-do   { background: var(--bs-green); color: #fff; }
+  .bl-dont { background: var(--bs-red);   color: #fff; }
+  .voice-example { font-size: 14px; line-height: 1.65; font-style: italic; color: var(--bs-charcoal); }
+  .voice-note { font-size: 12px; color: var(--bs-mid); margin-top: 8px; }
+
+  /* ── Banned words ──────────────────────────── */
+  .banned-box {
+    border: 1px solid #E8A090; border-radius: 12px;
+    padding: 1.25rem; background: var(--bs-red-pale); margin-top: 1.5rem;
+  }
+  .banned-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--bs-red); margin-bottom: 10px;
+  }
+  .banned-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill {
+    background: #fff; color: var(--bs-red-dark); border: 1px solid #E8A090;
+    border-radius: 20px; padding: 3px 11px; font-size: 12px; font-family: 'Courier New', monospace;
+  }
+
+  /* ── Buttons ───────────────────────────────── */
+  .btn-primary {
+    background: var(--bs-orange); color: #fff; border: none;
+    border-radius: 8px; padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    font-weight: 500; cursor: pointer; letter-spacing: -0.1px;
+  }
+  .btn-ghost {
+    background: transparent; color: var(--bs-orange);
+    border: 1.5px solid var(--bs-orange); border-radius: 8px;
+    padding: 10px 22px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent; color: var(--bs-charcoal);
+    border: 1px solid var(--bs-border); border-radius: 8px;
+    padding: 10px 22px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+
+  /* ── Status badges ─────────────────────────── */
+  .tag {
+    display: inline-flex; align-items: center;
+    font-size: 11px; font-weight: 600; border-radius: 20px;
+    padding: 3px 11px; letter-spacing: 0.2px;
+  }
+  .tag-orange { background: var(--bs-orange-pale); color: var(--bs-orange-dark); }
+  .tag-green  { background: var(--bs-green-pale);  color: var(--bs-green); }
+  .tag-amber  { background: var(--bs-amber-pale);  color: var(--bs-amber); }
+  .tag-red    { background: var(--bs-red-pale);    color: var(--bs-red); }
+
+  /* ── Disclaimer component ──────────────────── */
+  .disclaimer {
+    background: var(--bs-amber-pale); border: 1px solid #E0C070;
+    border-radius: 10px; padding: 1rem 1.25rem;
+    font-size: 13px; color: var(--bs-amber);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .disclaimer-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .disclaimer strong { display: block; margin-bottom: 4px; }
+
+  /* ── Content cards ─────────────────────────── */
+  .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .content-card {
+    border: 1px solid var(--bs-border); border-radius: 12px;
+    padding: 1.25rem; background: var(--bs-white);
+  }
+  .card-title {
+    font-family: 'DM Serif Display', serif; font-size: 17px;
+    color: var(--bs-charcoal); margin: 10px 0 6px; line-height: 1.35;
+  }
+  .card-meta { font-size: 12px; color: var(--bs-muted); }
+
+  /* ── Spacing table ─────────────────────────── */
+  .spacing-table { width: 100%; border-collapse: collapse; }
+  .spacing-table td {
+    padding: 10px 12px; border-bottom: 1px solid var(--bs-border);
+    font-size: 14px;
+  }
+  .spacing-table tr:last-child td { border-bottom: none; }
+  .spacing-vis { display: inline-block; background: var(--bs-orange); border-radius: 3px; height: 16px; vertical-align: middle; }
+  .spacing-token { font-family: 'Courier New', monospace; font-size: 12px; color: var(--bs-mid); }
+
+  /* ── Radius swatches ───────────────────────── */
+  .radius-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+  .radius-swatch {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .radius-box {
+    width: 48px; height: 48px;
+    background: var(--bs-orange-pale); border: 1.5px solid var(--bs-orange);
+  }
+  .radius-label { font-size: 11px; color: var(--bs-mid); text-align: center; }
+
+  /* ── Disclaimer architecture ───────────────── */
+  .disc-row {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 1rem 1.25rem; border-radius: 10px; margin-bottom: 10px;
+    border: 1px solid var(--bs-border);
+  }
+  .disc-row.disc-footer { background: var(--bs-white); }
+  .disc-row.disc-tool   { background: var(--bs-amber-pale); border-color: #E0C070; }
+  .disc-row.disc-lead   { background: var(--bs-orange-pale); border-color: var(--bs-orange-mid); }
+  .disc-pill {
+    white-space: nowrap; flex-shrink: 0;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; border-radius: 20px; padding: 3px 11px;
+  }
+  .disc-pill.dp-footer { background: var(--bs-charcoal); color: #fff; }
+  .disc-pill.dp-tool   { background: var(--bs-amber); color: #fff; }
+  .disc-pill.dp-lead   { background: var(--bs-orange); color: #fff; }
+  .disc-text { font-size: 13px; color: var(--bs-mid); line-height: 1.65; }
+
+  /* ── Sample executions ─────────────────────── */
+  .sample-hero-block {
+    background: var(--bs-charcoal); border-radius: 14px;
+    padding: 2.5rem; position: relative; overflow: hidden; margin-bottom: 12px;
+  }
+  .sample-hero-block::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.2) 0%, transparent 70%);
+  }
+  .shb-tag { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--bs-orange); font-weight: 600; margin-bottom: 8px; }
+  .shb-h { font-family: 'DM Serif Display', serif; font-size: 26px; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+  .shb-p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 1.25rem; }
+  .shb-legal { margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.3); }
+
+  /* ── Info box ──────────────────────────────── */
+  .info-box {
+    background: var(--bs-orange-pale); border: 1px solid var(--bs-orange-mid);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    font-size: 14px; color: var(--bs-charcoal); line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  /* ── Misuse cards ──────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mc-bad  { border: 1px solid #EEB0A0; border-radius: 10px; padding: 1.25rem; background: var(--bs-red-pale); }
+  .mc-good { border: 1px solid #A8D9BC; border-radius: 10px; padding: 1.25rem; background: var(--bs-green-pale); }
+  .mc-text-bad  { font-size: 13px; color: var(--bs-red-dark); line-height: 1.65; margin-top: 8px; }
+  .mc-text-good { font-size: 13px; color: var(--bs-green-dark); line-height: 1.65; margin-top: 8px; }
+
+  /* ── Tone pillars ──────────────────────────── */
+  .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .pillar {
+    background: var(--bs-orange-pale); border: 1px solid var(--bs-orange-mid);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .pillar-title { font-size: 15px; font-weight: 600; color: var(--bs-orange); margin-bottom: 6px; }
+  .pillar-desc { font-size: 12px; color: var(--bs-mid); line-height: 1.5; }
+
+  /* ── CTA footer block ──────────────────────── */
+  .cta-block {
+    background: var(--bs-orange-pale); border: 1px solid var(--bs-orange-mid);
+    border-radius: 14px; padding: 2.5rem; text-align: center; margin-top: 4rem;
+  }
+  .cta-block h3 {
+    font-family: 'DM Serif Display', serif; font-size: 26px;
+    color: var(--bs-charcoal); margin-bottom: 10px;
+  }
+  .cta-block p { font-size: 15px; color: var(--bs-mid); margin-bottom: 1.5rem; }
+  .cta-meta { margin-top: 1.25rem; font-size: 11px; color: var(--bs-muted); }
+
+  /* ── Print helper ──────────────────────────── */
+  @media print {
+    nav { position: static; }
+    .hero, .sample-hero-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="16" width="28" height="14" rx="3" fill="#E8611A"/>
+        <rect x="2" y="4" width="13" height="10" rx="2" fill="#F4924E"/>
+        <rect x="17" y="4" width="13" height="10" rx="2" fill="#F4924E"/>
+        <rect x="6" y="19" width="5" height="8" rx="1.5" fill="#C44E10" opacity="0.6"/>
+        <rect x="13.5" y="19" width="5" height="8" rx="1.5" fill="#C44E10" opacity="0.6"/>
+        <rect x="21" y="19" width="5" height="8" rx="1.5" fill="#C44E10" opacity="0.6"/>
+      </svg>
+      <span class="nav-wordmark">BrickSuper Brand Guidelines</span>
+    </div>
+    <span class="nav-version">Version 1.0 · March 2026</span>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Brand Introduction</div>
+    <div class="hero-title">Built on <em>substance</em>,<br>not sales pressure.</div>
+    <div class="hero-body">BrickSuper is Australia's educational home for SMSF property. Every brand decision — colour, word choice, layout — reflects our commitment to clarity, compliance, and trust. This guide ensures everyone who works with our brand communicates consistently and responsibly.</div>
+    <div class="hero-meta">For creative partners, licensees, content contributors, and internal team members. Questions? Contact the BrickSuper brand team.</div>
+  </div>
+
+  <!-- ════════════ LOGOMARK ════════════ -->
+  <div class="section">
+    <div class="section-label">01 · Logomark</div>
+    <div class="section-title">The Orange Brick</div>
+    <div class="section-desc">The BrickSuper mark is a stylised brick — solid, structural, and reliable. Its stacked form references both property ownership and the layered nature of superannuation planning. The orange signals warmth and approachability, cutting through the grey formality of financial services.</div>
+
+    <div class="logo-grid">
+      <!-- Light -->
+      <div class="logo-card lc-light">
+        <div class="logo-lockup">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="20" width="36" height="18" rx="3.5" fill="#E8611A"/>
+            <rect x="2" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="22" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="7" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="17" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="27" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+          </svg>
+          <div>
+            <div class="logo-text-main" style="color:#1C1C1E;">BrickSuper</div>
+            <div class="logo-text-sub" style="color:#9B9BAA;">SMSF PROPERTY EDUCATION</div>
+          </div>
+        </div>
+        <div class="logo-card-label">Light background — primary use</div>
+      </div>
+      <!-- Dark -->
+      <div class="logo-card lc-dark">
+        <div class="logo-lockup">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="20" width="36" height="18" rx="3.5" fill="#E8611A"/>
+            <rect x="2" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="22" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="7" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="17" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="27" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+          </svg>
+          <div>
+            <div class="logo-text-main" style="color:#FFFFFF;">BrickSuper</div>
+            <div class="logo-text-sub" style="color:rgba(255,255,255,0.38);">SMSF PROPERTY EDUCATION</div>
+          </div>
+        </div>
+        <div class="logo-card-label">Dark background — reversed</div>
+      </div>
+      <!-- Orange -->
+      <div class="logo-card lc-orange">
+        <div class="logo-lockup">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="20" width="36" height="18" rx="3.5" fill="#FFFFFF" opacity="0.95"/>
+            <rect x="2" y="5" width="16" height="12" rx="2.5" fill="#FFFFFF" opacity="0.65"/>
+            <rect x="22" y="5" width="16" height="12" rx="2.5" fill="#FFFFFF" opacity="0.65"/>
+            <rect x="7" y="24" width="6" height="10" rx="1.5" fill="#E8611A" opacity="0.45"/>
+            <rect x="17" y="24" width="6" height="10" rx="1.5" fill="#E8611A" opacity="0.45"/>
+            <rect x="27" y="24" width="6" height="10" rx="1.5" fill="#E8611A" opacity="0.45"/>
+          </svg>
+          <div>
+            <div class="logo-text-main" style="color:#FFFFFF;">BrickSuper</div>
+            <div class="logo-text-sub" style="color:rgba(255,255,255,0.55);">SMSF PROPERTY EDUCATION</div>
+          </div>
+        </div>
+        <div class="logo-card-label">Brand orange — event / campaign use</div>
+      </div>
+      <!-- Pale / icon only -->
+      <div class="logo-card lc-pale">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <svg width="56" height="56" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="20" width="36" height="18" rx="3.5" fill="#E8611A"/>
+            <rect x="2" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="22" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+            <rect x="7" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="17" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+            <rect x="27" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+          </svg>
+        </div>
+        <div class="logo-card-label">Logomark only — app icon / favicon</div>
+      </div>
+    </div>
+
+    <!-- Clearspace -->
+    <div class="type-specimen">
+      <div class="type-label">Clearspace & minimum size</div>
+      <p style="font-size:14px;color:var(--bs-mid);line-height:1.7;">
+        Maintain a minimum clearspace of <strong style="color:var(--bs-charcoal);">1× the height of the brick mark</strong> on all sides.
+        Minimum display size: <strong style="color:var(--bs-charcoal);">24px height</strong> digital · <strong style="color:var(--bs-charcoal);">12mm</strong> print.
+        Never stretch, rotate, recolour, add effects, or separate the mark from its wordmark in public-facing contexts.
+      </p>
+    </div>
+
+    <div class="two-col" style="margin-top:1rem;">
+      <div class="mc-good">
+        <span class="badge-label bl-do">Do</span>
+        <div class="mc-text-good">Use the reversed (white) version on dark or orange backgrounds. Maintain clearspace on all sides. Use the standalone brick icon only in size-constrained contexts like app icons and favicons. Always pair with wordmark in editorial contexts.</div>
+      </div>
+      <div class="mc-bad">
+        <span class="badge-label bl-dont">Don't</span>
+        <div class="mc-text-bad">Apply drop shadows, gradients, or glow effects. Recolour bricks outside the approved palette. Place the logo on busy photography without adequate contrast. Use the wordmark without the brick icon in brand contexts.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ COLOUR ════════════ -->
+  <div class="section">
+    <div class="section-label">02 · Colour</div>
+    <div class="section-title">The BrickSuper palette</div>
+    <div class="section-desc">Colour signals trust and accessibility in financial services. Our orange is distinctive without being aggressive — approachable, not sales-driven. Neutrals carry the weight of compliance-focused content.</div>
+
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Primary colours</p>
+    <div class="color-grid-5">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#E8611A;"></div>
+        <div class="swatch-info"><div class="swatch-name">Brick Orange</div><div class="swatch-hex">#E8611A · Primary brand</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#C44E10;"></div>
+        <div class="swatch-info"><div class="swatch-name">Deep Brick</div><div class="swatch-hex">#C44E10 · Hover / emphasis</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1C1C1E;"></div>
+        <div class="swatch-info"><div class="swatch-name">Charcoal</div><div class="swatch-hex">#1C1C1E · Hero bg / text</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#FAFAF8;border:1px solid #E2E1EC;"></div>
+        <div class="swatch-info"><div class="swatch-name">Off White</div><div class="swatch-hex">#FAFAF8 · Page background</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#FDF0E8;"></div>
+        <div class="swatch-info"><div class="swatch-name">Brick Pale</div><div class="swatch-hex">#FDF0E8 · Tinted surfaces</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:6px;margin-top:1.5rem;">Brick Orange tint scale</p>
+    <div class="tint-row">
+      <div class="tint-block" style="background:#FDF0E8;"></div>
+      <div class="tint-block" style="background:#FAD5BC;"></div>
+      <div class="tint-block" style="background:#F4924E;"></div>
+      <div class="tint-block" style="background:#E8611A;border:1.5px solid #C44E10;"></div>
+      <div class="tint-block" style="background:#C44E10;"></div>
+      <div class="tint-block" style="background:#922E04;"></div>
+    </div>
+    <div class="tint-labels">
+      <div class="tint-label">50</div><div class="tint-label">100</div><div class="tint-label">300</div>
+      <div class="tint-label">500 ★</div><div class="tint-label">700</div><div class="tint-label">900</div>
+    </div>
+
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Semantic / secondary colours</p>
+    <div class="color-grid-3">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1A7A4A;"></div>
+        <div class="swatch-info"><div class="swatch-name">Compliance Green</div><div class="swatch-hex">#1A7A4A · Positive / pass</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#C4780E;"></div>
+        <div class="swatch-info"><div class="swatch-name">Caution Amber</div><div class="swatch-hex">#C4780E · Warnings / risk flags</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#B03020;"></div>
+        <div class="swatch-info"><div class="swatch-name">Alert Red</div><div class="swatch-hex">#B03020 · Critical / errors</div></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Accessibility note:</strong> Brick Orange (#E8611A) on white passes WCAG AA for large text only (3:1 ratio). For body text and interactive UI, use Deep Brick (#C44E10) on white, or white text on Brick Orange. Semantic colours (green, amber, red) must only appear as tinted backgrounds with dark text — never as text colour on white.
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ TYPOGRAPHY ════════════ -->
+  <div class="section">
+    <div class="section-label">03 · Typography</div>
+    <div class="section-title">Two typefaces, one voice</div>
+    <div class="section-desc">DM Serif Display for headlines brings warmth and editorial authority — qualities that distinguish rigorous education from generic fintech. DM Sans for body and UI is clean, legible, and approachable at every size.</div>
+
+    <div class="type-specimen">
+      <div class="type-label">Display / Page headlines — DM Serif Display Regular (400)</div>
+      <div class="t-display">Know your SMSF inside out.</div>
+      <div class="t-caption">36–48px · Line height 1.1–1.15 · Used for page H1, hero headings only</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-label">Section heading — DM Serif Display Regular (400)</div>
+      <div class="t-h2">Business Real Property explained simply.</div>
+      <div class="t-caption">24–28px · Used for H2 section titles, card group headers</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-label">Subheading — DM Sans SemiBold (600)</div>
+      <div class="t-h3">What the ATO looks for in concentration risk</div>
+      <div class="t-caption">18px · Used for H3, tool section titles, card subheads</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-label">Body copy — DM Sans Regular (400)</div>
+      <div class="t-body">An SMSF can hold business real property under s66(5) of the SIS Act, provided the asset is used wholly and exclusively in one or more businesses. Temporary vacancies while seeking tenants do not defeat BRP status — but idle or dormant property fails the test. Every benefit must be paired with corresponding risks. Always seek independent legal advice before proceeding.</div>
+      <div class="t-caption">15px · Line height 1.75 · Used for all editorial body copy</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-label">Legal / Disclaimer — DM Sans Light (300)</div>
+      <div class="t-small">BrickSuper.com provides factual educational information only. We do not hold an Australian Financial Services Licence (AFSL) and are not authorised to provide financial product advice. This information does not consider your personal circumstances or financial situation. Past performance is not a reliable indicator of future performance. Always consult a licensed financial adviser before making investment decisions.</div>
+      <div class="t-caption">12px · Light weight · Never set below 11px · Used for footer disclaimers, tool warnings</div>
+    </div>
+
+    <div class="two-col" style="margin-top:1rem;">
+      <div class="mc-good">
+        <span class="badge-label bl-do">Do</span>
+        <div class="mc-text-good">Use Serif Display exclusively for page and section titles. Use DM Sans for all UI, body copy, buttons, labels, and legal text. Mix weights intentionally: 300 disclaimers · 400 body · 500 labels · 600 subheads.</div>
+      </div>
+      <div class="mc-bad">
+        <span class="badge-label bl-dont">Don't</span>
+        <div class="mc-text-bad">Use serif for body copy, UI labels, or CTAs. Introduce third typefaces. Apply all-caps to headlines. Use font weights above 600. Set legal disclaimers below 11px or in light grey on white.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ VOICE & TONE ════════════ -->
+  <div class="section">
+    <div class="section-label">04 · Voice & Tone</div>
+    <div class="section-title">Educator, not salesperson</div>
+    <div class="section-desc">BrickSuper's voice is grounded, direct, and fair. We explain complexity without dumbing it down. We balance opportunity with risk. We never pressure — we inform. This is not just a brand choice; it is a compliance requirement under ASIC's February 2026 review of SMSF lead generators.</div>
+
+    <div class="pillar-grid">
+      <div class="pillar"><div class="pillar-title">Clear</div><div class="pillar-desc">Plain English over jargon. Define every technical term on first use.</div></div>
+      <div class="pillar"><div class="pillar-title">Balanced</div><div class="pillar-desc">Every benefit must be paired with the corresponding risk or caveat.</div></div>
+      <div class="pillar"><div class="pillar-title">Grounded</div><div class="pillar-desc">Cite ATO data, legislation, and ASIC guidance. Show your sources.</div></div>
+      <div class="pillar"><div class="pillar-title">Respectful</div><div class="pillar-desc">Readers are competent adults making considered financial decisions.</div></div>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card do-card">
+        <span class="badge-label bl-do">Write this</span>
+        <div class="voice-example">"An SMSF can hold commercial property — but concentration above 90% in a single asset attracts ATO scrutiny. Your investment strategy must document the rationale in writing."</div>
+        <div class="voice-note">Factual, balanced, cites a regulatory consequence, directs to documentation obligation.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <span class="badge-label bl-dont">Not this</span>
+        <div class="voice-example">"Your super could be working harder! Get started on your SMSF property journey today — our expert team can help you unlock your fund's full potential."</div>
+        <div class="voice-note">Promotional, implies underperformance, uses restricted framing, implies personalised advice.</div>
+      </div>
+      <div class="voice-card do-card">
+        <span class="badge-label bl-do">Write this</span>
+        <div class="voice-example">"BrickSuper provides educational information about SMSFs. We can connect you with licensed specialists — but the decision to engage any adviser is always yours."</div>
+        <div class="voice-note">Transparent about commercial model, preserves user autonomy, legally safe framing.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <span class="badge-label bl-dont">Not this</span>
+        <div class="voice-example">"We recommend speaking with one of our independent, unbiased SMSF experts to find the best approach for your situation."</div>
+        <div class="voice-note">Uses s.923A restricted terms (independent, unbiased), implies capacity for personal advice.</div>
+      </div>
+    </div>
+
+    <div class="banned-box">
+      <div class="banned-label">Prohibited words &amp; phrases — ASIC compliance (s.923A &amp; ASIC 26-029MR)</div>
+      <div class="banned-pills">
+        <span class="pill">"independent"</span>
+        <span class="pill">"impartial"</span>
+        <span class="pill">"unbiased"</span>
+        <span class="pill">"you should"</span>
+        <span class="pill">"we recommend"</span>
+        <span class="pill">"the best approach"</span>
+        <span class="pill">"your super is underperforming"</span>
+        <span class="pill">"free super health check"</span>
+        <span class="pill">"high returns"</span>
+        <span class="pill">"our expert team"</span>
+        <span class="pill">"unlock your potential"</span>
+        <span class="pill">"get started on your journey"</span>
+        <span class="pill">"we can determine if SMSF is right for you"</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ COMPONENTS ════════════ -->
+  <div class="section">
+    <div class="section-label">05 · Components</div>
+    <div class="section-title">Core UI elements</div>
+    <div class="section-desc">Consistent components build trust through familiarity. Every interactive element should feel like it belongs to the same considered system — and every tool page must carry the mandatory disclaimer component.</div>
+
+    <!-- Buttons -->
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Buttons</p>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:1rem;">
+      <button class="btn-primary">Connect with a specialist</button>
+      <button class="btn-ghost">Take the readiness quiz</button>
+      <button class="btn-secondary">Download checklist</button>
+    </div>
+    <div class="two-col" style="margin-bottom:2rem;">
+      <div class="mc-good">
+        <span class="badge-label bl-do">Approved CTA language</span>
+        <div class="mc-text-good">"Connect with a licensed SMSF specialist" · "Calculate my LRBA repayments" · "Email me my results" · "Download the pre-purchase checklist" · "Take the readiness quiz"</div>
+      </div>
+      <div class="mc-bad">
+        <span class="badge-label bl-dont">Prohibited CTA language</span>
+        <div class="mc-text-bad">"Get started!" · "Unlock your super potential" · "Speak to our experts now" · "Find out if SMSF is right for you" · "Claim your free analysis"</div>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Status badges</p>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2rem;">
+      <span class="tag tag-orange">Factual information</span>
+      <span class="tag tag-green">Compliant example</span>
+      <span class="tag tag-amber">Risk flag</span>
+      <span class="tag tag-red">Seek legal advice</span>
+    </div>
+
+    <!-- Disclaimer -->
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Disclaimer component — mandatory on all tool &amp; calculator pages</p>
+    <div class="disclaimer" style="margin-bottom:2rem;">
+      <div class="disclaimer-icon">⚠</div>
+      <div>
+        <strong>General information only</strong>
+        This tool produces illustrative calculations based on your inputs and general assumptions. It is not financial advice and does not consider your personal circumstances, objectives, or financial situation. Outputs are educational only. Consult a licensed financial adviser before making any investment decisions.
+      </div>
+    </div>
+
+    <!-- Content cards -->
+    <p style="font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--bs-mid);margin-bottom:10px;">Content cards</p>
+    <div class="card-grid-3">
+      <div class="content-card">
+        <span class="tag tag-orange">Guide</span>
+        <div class="card-title">LRBA rules explained plainly</div>
+        <div class="card-meta">8 min read · Updated Mar 2026</div>
+      </div>
+      <div class="content-card">
+        <span class="tag tag-green">Tool</span>
+        <div class="card-title">Property complexity risk profiler</div>
+        <div class="card-meta">Interactive · 5 min to complete</div>
+      </div>
+      <div class="content-card">
+        <span class="tag tag-amber">Template</span>
+        <div class="card-title">Investment strategy — property focus</div>
+        <div class="card-meta">Free download · PDF + DOCX</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ SPACING ════════════ -->
+  <div class="section">
+    <div class="section-label">06 · Spacing &amp; Layout</div>
+    <div class="section-title">The spacing scale</div>
+    <div class="section-desc">Consistent spacing creates rhythm and breathing room — especially important in compliance-heavy content where visual density causes anxiety and erodes trust.</div>
+
+    <div class="type-specimen">
+      <table class="spacing-table">
+        <tr>
+          <td><div class="spacing-vis" style="width:4px;"></div></td>
+          <td style="font-weight:500;">4px</td>
+          <td class="spacing-token">--space-xs</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Icon gaps, tight inline spacing</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:8px;"></div></td>
+          <td style="font-weight:500;">8px</td>
+          <td class="spacing-token">--space-sm</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Badge padding, tight component gaps</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:12px;"></div></td>
+          <td style="font-weight:500;">12px</td>
+          <td class="spacing-token">--space-md</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Card grid gap, form field gap</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:16px;"></div></td>
+          <td style="font-weight:500;">16px</td>
+          <td class="spacing-token">--space-lg</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Card padding (compact), component group spacing</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:24px;"></div></td>
+          <td style="font-weight:500;">24px</td>
+          <td class="spacing-token">--space-xl</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Card padding (comfortable), tool disclaimer margin</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:40px;"></div></td>
+          <td style="font-weight:500;">40px</td>
+          <td class="spacing-token">--space-2xl</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Section top margin, hero padding</td>
+        </tr>
+        <tr>
+          <td><div class="spacing-vis" style="width:64px;"></div></td>
+          <td style="font-weight:500;">64px</td>
+          <td class="spacing-token">--space-3xl</td>
+          <td style="color:var(--bs-mid);font-size:13px;">Page section divider vertical rhythm</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="type-specimen" style="margin-top:1rem;">
+      <div class="type-label">Border radius tokens</div>
+      <div class="radius-row" style="margin-top:8px;">
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-label">4px<br>xs · badges</div></div>
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-label">8px<br>md · buttons</div></div>
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:12px;"></div><div class="radius-label">12px<br>lg · cards</div></div>
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:16px;"></div><div class="radius-label">16px<br>xl · hero blocks</div></div>
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:24px;"></div><div class="radius-label">24px<br>pill · tags</div></div>
+        <div class="radius-swatch"><div class="radius-box" style="border-radius:50%;"></div><div class="radius-label">50%<br>circle · avatars</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ IMAGERY ════════════ -->
+  <div class="section">
+    <div class="section-label">07 · Imagery</div>
+    <div class="section-title">Real people, real properties</div>
+    <div class="section-desc">Photography reinforces editorial credibility. We use images that signal professional context — working Australians, authentic commercial spaces, and documentary-style property photography. Never sales-brochure aesthetics.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1rem;">
+      <div style="border:1px solid var(--bs-border);border-radius:12px;overflow:hidden;">
+        <div style="height:110px;background:#E8E6DE;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--bs-mid);font-style:italic;">Commercial facade, natural light</div>
+        <div style="padding:10px 12px;border-top:1px solid var(--bs-border);">
+          <span class="tag tag-green">Use</span>
+          <p style="font-size:12px;color:var(--bs-mid);margin-top:6px;">Authentic commercial real estate. Street-level, natural daylight. No staging.</p>
+        </div>
+      </div>
+      <div style="border:1px solid var(--bs-border);border-radius:12px;overflow:hidden;">
+        <div style="height:110px;background:#EAE8E0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--bs-mid);font-style:italic;">Business owner, working context</div>
+        <div style="padding:10px 12px;border-top:1px solid var(--bs-border);">
+          <span class="tag tag-green">Use</span>
+          <p style="font-size:12px;color:var(--bs-mid);margin-top:6px;">Real working context. Authentic, not posed. Diverse and representative.</p>
+        </div>
+      </div>
+      <div style="border:1px solid var(--bs-border);border-radius:12px;overflow:hidden;">
+        <div style="height:110px;background:#F5EEE8;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--bs-mid);font-style:italic;">Generic handshake / growth charts</div>
+        <div style="padding:10px 12px;border-top:1px solid var(--bs-border);">
+          <span class="tag tag-red">Avoid</span>
+          <p style="font-size:12px;color:var(--bs-mid);margin-top:6px;">Generic finance stock imagery. Sales-brochure aesthetics signal the operators ASIC targeted.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Orange tint overlays:</strong> When applying brand colour to photography in hero sections or social cards, use Brick Orange (#E8611A) at 20–25% opacity with multiply blend mode. Never apply orange overlays to images depicting real people — it reduces accessibility and professionalism.
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ IN PRACTICE ════════════ -->
+  <div class="section">
+    <div class="section-label">08 · Brand in Practice</div>
+    <div class="section-title">Sample executions</div>
+    <div class="section-desc">How the brand system combines in real contexts — tool hero sections, email headers, and partner-facing materials.</div>
+
+    <!-- Sample hero -->
+    <div class="sample-hero-block">
+      <div class="shb-tag">SMSF Property Education</div>
+      <div class="shb-h">Can your SMSF afford this commercial property?</div>
+      <div class="shb-p">Enter the numbers and receive an educational complexity and risk overview — including concentration analysis, LRBA stress-test, and BRP status flags. Takes 5 minutes.</div>
+      <button class="btn-primary" style="font-size:14px;padding:10px 22px;">Calculate my LRBA repayments</button>
+      <div class="shb-legal">General information only · No AFSL held · BrickSuper.com</div>
+    </div>
+
+    <!-- Email header -->
+    <div style="border:1px solid var(--bs-border);border-radius:12px;padding:1.5rem;background:var(--bs-white);">
+      <p style="font-size:12px;color:var(--bs-mid);margin-bottom:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;">Email header — BrickSuper newsletter</p>
+      <div style="background:var(--bs-charcoal);border-radius:8px;padding:1.25rem;display:flex;align-items:center;gap:14px;">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="16" width="28" height="14" rx="3" fill="#E8611A"/>
+          <rect x="2" y="4" width="13" height="10" rx="2" fill="#F4924E"/>
+          <rect x="17" y="4" width="13" height="10" rx="2" fill="#F4924E"/>
+        </svg>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#fff;line-height:1;">BrickSuper</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.38);letter-spacing:1px;margin-top:2px;">SMSF PROPERTY EDUCATION</div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.35);">March 2026 · Issue 4</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- ════════════ DISCLAIMER ARCHITECTURE ════════════ -->
+  <div class="section">
+    <div class="section-label">09 · Compliance Layer</div>
+    <div class="section-title">Mandatory disclaimer architecture</div>
+    <div class="section-desc">Disclaimers are a legal requirement, not a design afterthought. The <em>Westpac v ASIC (2021 HCA 3)</em> decision established that a single general-advice warning is insufficient — disclaimers must be layered, specific, and prominent on every relevant surface. These texts are non-negotiable and must not be abbreviated.</div>
+
+    <div class="disc-row disc-footer">
+      <span class="disc-pill dp-footer">Site footer</span>
+      <div class="disc-text">BrickSuper.com provides factual educational information only. We do not hold an Australian Financial Services Licence (AFSL) and are not authorised to provide financial product advice. BrickSuper may earn a referral fee when you choose to connect with a licensed adviser — this fee is fixed and does not depend on any financial product you acquire. Always seek advice from a licensed professional before making superannuation or investment decisions.</div>
+    </div>
+    <div class="disc-row disc-tool">
+      <span class="disc-pill dp-tool">Tool pages</span>
+      <div class="disc-text">This tool produces illustrative calculations based on your inputs and general assumptions. It is not financial advice and does not consider your personal circumstances, objectives, or financial situation. Outputs are educational only. Seek advice from a licensed financial adviser before making investment decisions.</div>
+    </div>
+    <div class="disc-row disc-lead">
+      <span class="disc-pill dp-lead">Lead forms</span>
+      <div class="disc-text">By submitting this form, you agree to be contacted by a licensed SMSF specialist. BrickSuper may receive a fixed referral fee from the adviser's licensee. This fee is the same regardless of what advice you receive or whether you proceed with any financial product.</div>
+    </div>
+
+    <div class="info-box" style="margin-top:1.5rem;">
+      <strong>For downloadable lead magnets:</strong> every PDF and DOCX must carry a first-page disclaimer and a repeated footer reminder on each page. CTAs within lead magnets must say "Connect with a licensed SMSF specialist" — never "We recommend" or "Based on your situation, you should."
+    </div>
+  </div>
+
+  <!-- CTA FOOTER -->
+  <div class="cta-block">
+    <h3>Questions about using this brand?</h3>
+    <p>For creative partnership enquiries, co-branded material review, or brand asset access, contact the BrickSuper brand team directly. All co-branded materials require compliance sign-off before publication.</p>
+    <button class="btn-primary">Contact the brand team</button>
+    <div class="cta-meta">Version 1.0 · March 2026 · Review due September 2026<br>Based on GitLab Pajamas Design System structure · BrickSuper.com</div>
+  </div>
+
+</div>
+</body>
+</html>

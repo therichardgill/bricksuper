@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrickSuper Brand Voice Guide v1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bs-orange:#E8611A; --bs-orange-dark:#C44E10; --bs-orange-light:#F4924E;
+    --bs-orange-pale:#FDF0E8; --bs-orange-mid:#FAD5BC;
+    --bs-charcoal:#1C1C1E; --bs-slate:#3D3D4A; --bs-mid:#6B6B7A;
+    --bs-muted:#9B9BAA; --bs-border:#E2E1EC; --bs-bg:#FAFAF8; --bs-white:#FFFFFF;
+    --bs-green:#1A7A4A; --bs-green-pale:#E8F5EE; --bs-green-dark:#14542F;
+    --bs-amber:#C4780E; --bs-amber-pale:#FDF3E0;
+    --bs-red:#B03020; --bs-red-pale:#FCEEEB; --bs-red-dark:#7A2015;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bs-bg);color:var(--bs-charcoal);line-height:1.6;font-size:15px;}
+
+  nav{display:flex;align-items:center;padding:1.25rem 2rem;border-bottom:1px solid var(--bs-border);background:var(--bs-white);position:sticky;top:0;z-index:100;}
+  .nav-inner{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto;width:100%;}
+  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-wordmark{font-size:15px;font-weight:600;color:var(--bs-charcoal);}
+  .nav-version{font-size:12px;color:var(--bs-muted);margin-left:auto;}
+
+  .page{max-width:900px;margin:0 auto;padding:0 2rem 6rem;}
+
+  .hero{background:var(--bs-charcoal);border-radius:16px;padding:3.5rem;margin:3rem 0;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(232,97,26,0.2) 0%,transparent 70%);pointer-events:none;}
+  .hero::after{content:'';position:absolute;bottom:-40px;left:25%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(232,97,26,0.07) 0%,transparent 70%);pointer-events:none;}
+  .hero-label{font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--bs-orange);margin-bottom:1rem;}
+  .hero-title{font-family:'DM Serif Display',Georgia,serif;font-size:42px;font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem;}
+  .hero-title em{color:var(--bs-orange-light);font-style:italic;}
+  .hero-body{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.75;max-width:580px;margin-bottom:1.5rem;}
+  .hero-meta{font-size:12px;color:rgba(255,255,255,0.3);border-top:1px solid rgba(255,255,255,0.1);padding-top:1rem;}
+
+  .section{padding:4rem 0 0;}
+  hr.divider{border:none;border-top:1px solid var(--bs-border);margin:0;}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--bs-orange);margin-bottom:0.5rem;}
+  .section-title{font-family:'DM Serif Display',Georgia,serif;font-size:30px;font-weight:400;color:var(--bs-charcoal);margin-bottom:0.75rem;line-height:1.15;}
+  .section-desc{font-size:15px;color:var(--bs-mid);line-height:1.75;max-width:660px;margin-bottom:2rem;}
+
+  /* Audience block */
+  .audience-block{background:var(--bs-charcoal);border-radius:12px;padding:2rem 2.5rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+  .audience-block::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(232,97,26,0.15) 0%,transparent 70%);}
+  .audience-block p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:0.75rem;}
+  .audience-block p:last-child{margin-bottom:0;}
+  .audience-block strong{color:var(--bs-orange-light);}
+
+  /* Brand idea */
+  .brand-idea{background:var(--bs-orange-pale);border:1px solid var(--bs-orange-mid);border-radius:12px;padding:2rem 2.5rem;margin-bottom:2rem;}
+  .brand-idea-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--bs-orange-dark);margin-bottom:1rem;}
+  .brand-idea p{font-size:15px;color:var(--bs-slate);line-height:1.75;margin-bottom:0.75rem;}
+  .brand-idea p:last-child{margin-bottom:0;}
+  .brand-idea strong{color:var(--bs-charcoal);}
+
+  /* Pillars */
+  .pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2rem;}
+  .pillar{background:var(--bs-white);border:1px solid var(--bs-border);border-radius:12px;padding:1.5rem;}
+  .pillar-number{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--bs-orange);margin-bottom:6px;}
+  .pillar-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--bs-charcoal);margin-bottom:8px;}
+  .pillar-desc{font-size:14px;color:var(--bs-mid);line-height:1.65;margin-bottom:10px;}
+  .pillar-test{font-size:13px;color:var(--bs-mid);font-style:italic;border-top:1px solid var(--bs-border);padding-top:10px;line-height:1.6;}
+  .pillar-test::before{content:'Test: ';font-weight:600;font-style:normal;color:var(--bs-charcoal);}
+
+  /* Tone table */
+  .bs-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:14px;}
+  .bs-table th{background:var(--bs-charcoal);color:#fff;text-align:left;padding:10px 14px;font-size:11px;font-weight:600;letter-spacing:0.5px;}
+  .bs-table th:first-child{border-radius:6px 0 0 0;}
+  .bs-table th:last-child{border-radius:0 6px 0 0;}
+  .bs-table td{padding:10px 14px;border-bottom:1px solid var(--bs-border);color:var(--bs-slate);line-height:1.55;vertical-align:top;}
+  .bs-table tr:last-child td{border-bottom:none;}
+  .bs-table tr:nth-child(even) td{background:var(--bs-bg);}
+  .bs-table em{color:var(--bs-charcoal);font-style:italic;}
+
+  /* Vocabulary table */
+  .vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:2rem;}
+  .vocab-card{border-radius:12px;padding:1.5rem;}
+  .vocab-card.own{background:var(--bs-green-pale);border:1px solid #A8D9BC;}
+  .vocab-card.never{background:var(--bs-red-pale);border:1px solid #EEB0A0;}
+  .vocab-card-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+  .vocab-card.own .vocab-card-title{color:var(--bs-green);}
+  .vocab-card.never .vocab-card-title{color:var(--bs-red);}
+  .vocab-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:13.5px;line-height:1.5;}
+  .vocab-row:last-child{border-bottom:none;}
+  .vocab-idea{color:var(--bs-mid);width:45%;flex-shrink:0;font-style:italic;}
+  .vocab-say{color:var(--bs-charcoal);font-weight:500;}
+  .vocab-row-banned{padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:13.5px;line-height:1.5;}
+  .vocab-row-banned:last-child{border-bottom:none;}
+  .vocab-banned-phrase{font-family:'Courier New',monospace;font-size:12px;color:var(--bs-red-dark);margin-bottom:2px;}
+  .vocab-banned-why{font-size:12px;color:var(--bs-mid);}
+
+  /* Voice pairs */
+  .voice-scenario-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--bs-mid);margin:2rem 0 10px;}
+  .voice-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2px;}
+  .voice-card{border-radius:12px;padding:1.25rem;}
+  .voice-card.do-card{background:var(--bs-green-pale);border:1px solid #A8D9BC;}
+  .voice-card.dont-card{background:var(--bs-red-pale);border:1px solid #EEB0A0;}
+  .voice-badge{font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;}
+  .do-card .voice-badge{color:var(--bs-green);}
+  .dont-card .voice-badge{color:var(--bs-red);}
+  .voice-text{font-size:14px;font-style:italic;line-height:1.65;color:var(--bs-charcoal);margin-bottom:8px;}
+  .voice-note{font-size:12px;color:var(--bs-mid);line-height:1.5;}
+
+  /* Channel cards */
+  .channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;}
+  .channel-card{background:var(--bs-white);border:1px solid var(--bs-border);border-radius:12px;padding:1.25rem;}
+  .channel-title{font-size:13px;font-weight:600;color:var(--bs-charcoal);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .ch-tag{font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;background:var(--bs-orange-pale);color:var(--bs-orange-dark);border-radius:20px;padding:2px 8px;}
+  .channel-list{list-style:none;padding:0;}
+  .channel-list li{font-size:13px;color:var(--bs-mid);line-height:1.55;padding:4px 0 4px 14px;position:relative;border-bottom:1px solid var(--bs-border);}
+  .channel-list li:last-child{border-bottom:none;}
+  .channel-list li::before{content:'—';position:absolute;left:0;color:var(--bs-orange);}
+
+  /* Compliance table */
+  .comp-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:1.5rem;}
+  .comp-table th{background:var(--bs-charcoal);color:#fff;text-align:left;padding:10px 14px;font-size:11px;font-weight:600;letter-spacing:0.5px;}
+  .comp-table td{padding:10px 14px;border-bottom:1px solid var(--bs-border);vertical-align:top;line-height:1.6;}
+  .comp-table td:first-child{color:var(--bs-mid);width:38%;font-size:13px;}
+  .comp-table td:last-child{color:var(--bs-slate);}
+  .comp-table tr:nth-child(even) td{background:var(--bs-bg);}
+  .comp-table tr:last-child td{border-bottom:none;}
+
+  /* Checklist */
+  .checklist{background:var(--bs-white);border:1px solid var(--bs-border);border-radius:12px;overflow:hidden;}
+  .checklist-item{display:flex;gap:12px;align-items:flex-start;padding:10px 16px;border-bottom:1px solid var(--bs-border);font-size:14px;color:var(--bs-slate);line-height:1.5;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check{width:18px;height:18px;border:1.5px solid var(--bs-border);border-radius:4px;flex-shrink:0;margin-top:1px;}
+
+  /* Info box */
+  .info-box{background:var(--bs-orange-pale);border:1px solid var(--bs-orange-mid);border-radius:10px;padding:1rem 1.25rem;font-size:14px;color:var(--bs-charcoal);line-height:1.7;margin-bottom:1.5rem;}
+  .info-box strong{display:block;margin-bottom:4px;color:var(--bs-orange-dark);}
+
+  /* Metaphor note */
+  .metaphor-note{background:var(--bs-charcoal);border-radius:12px;padding:2rem;margin-top:4rem;}
+  .metaphor-note-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--bs-orange-light);margin-bottom:1rem;}
+  .metaphor-note p{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:0.75rem;}
+  .metaphor-note p:last-child{margin-bottom:0;}
+  .metaphor-note em{color:rgba(255,255,255,0.9);font-style:normal;}
+
+  /* CTA */
+  .cta-block{background:var(--bs-orange-pale);border:1px solid var(--bs-orange-mid);border-radius:14px;padding:2.5rem;text-align:center;margin-top:3rem;}
+  .cta-block h3{font-family:'DM Serif Display',serif;font-size:24px;color:var(--bs-charcoal);margin-bottom:10px;}
+  .cta-block p{font-size:15px;color:var(--bs-mid);margin-bottom:1.5rem;}
+  .btn-primary{background:var(--bs-orange);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
+  .cta-meta{margin-top:1.25rem;font-size:11px;color:var(--bs-muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="20" width="36" height="18" rx="3.5" fill="#E8611A"/>
+        <rect x="2" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+        <rect x="22" y="5" width="16" height="12" rx="2.5" fill="#F4924E"/>
+        <rect x="7" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+        <rect x="17" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+        <rect x="27" y="24" width="6" height="10" rx="1.5" fill="#C44E10" opacity="0.55"/>
+      </svg>
+      <span class="nav-wordmark">BrickSuper Brand Voice Guide</span>
+    </div>
+    <span class="nav-version">Version 1.1 · March 2026</span>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-label">Brand Voice · v1.1</div>
+    <div class="hero-title">Laying the foundations,<br><em>brick by brick.</em></div>
+    <div class="hero-body">BrickSuper speaks to mum and dad investors who've spent a lifetime building things — businesses, families, futures. Our voice reflects that. Warm, plain-spoken, honest about risk, and grounded in the belief that financial security is built the same way everything else worth having is built: one solid decision at a time.</div>
+    <div class="hero-meta">For content writers, developers, email marketers, and anyone creating BrickSuper-branded communications. · Version 1.1 · March 2026</div>
+  </div>
+
+  <!-- 01 WHO WE'RE TALKING TO -->
+  <div class="section">
+    <div class="section-label">01 · Our Audience</div>
+    <div class="section-title">Mum and dad investors — builders by nature</div>
+
+    <div class="audience-block">
+      <p>BrickSuper's audience is the Australian mum and dad investor. The tradie who owns their workshop. The GP who's been renting their clinic rooms for fifteen years. The couple who've built a small business from nothing and wonder if they're doing enough with their super.</p>
+      <p>They are not financial experts — and they're not trying to be. But they are <strong>builders by nature</strong>: people who understand that anything worth having takes time, effort, and the right foundations. They don't want jargon. They don't want pressure. They want someone to explain it straight, show them the risks alongside the rewards, and trust them to make the right call for their family.</p>
+      <p>They have worked hard for what they have. <strong>They deserve to understand what their super can do for them.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 02 THE BRAND IDEA -->
+  <div class="section">
+    <div class="section-label">02 · The Brand Idea</div>
+    <div class="section-title">Brick by brick</div>
+
+    <div class="brand-idea">
+      <div class="brand-idea-title">Not a slogan. A philosophy.</div>
+      <p>Property — especially commercial property — is not a get-rich-quick instrument. It is a <strong>foundation asset</strong>. One brick at a time, laid carefully, each one mortared in properly before the next goes down. That's how you build something that lasts. That's how mum and dad investors build financial security for retirement — not through speculation, but through <strong>steady, informed decisions made with the right knowledge and the right professionals beside them</strong>.</p>
+      <p>Every piece of content BrickSuper publishes should feel like it comes from someone who has laid a few bricks themselves. Who knows the difference between a solid foundation and a shaky one. Who will tell you when the ground isn't ready — even if that's not what you want to hear.</p>
+      <p>We talk about laying foundations, building security brick by brick, mortaring in the right decisions, making sure each layer is sound before the next goes down. We never talk about "turbocharging" super, "unlocking potential", or "getting started on a journey". <strong>We build. We don't sprint.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 03 FOUR PILLARS -->
+  <div class="section">
+    <div class="section-label">03 · Voice Pillars</div>
+    <div class="section-title">Four principles, one voice</div>
+    <div class="section-desc">These four pillars govern every content decision — a 5,000-word guide or a two-line disclaimer. Each includes a plain-English test to apply before publishing.</div>
+
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-number">Pillar 01</div>
+        <div class="pillar-title">Plain-spoken</div>
+        <div class="pillar-desc">No jargon without explanation. No acronyms without expansion. We write the way a trusted friend who happens to know about SMSFs would talk — direct, warm, honest. When a technical term is unavoidable, we define it in the same sentence.</div>
+        <div class="pillar-test">Would a couple sitting at their kitchen table on a Sunday evening understand this without stopping to Google anything?</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">Pillar 02</div>
+        <div class="pillar-title">Balanced</div>
+        <div class="pillar-desc">Every benefit gets its corresponding risk. Every opportunity comes with the honest caveat. We're not here to scare people off — but we're not here to sell them a dream either. Mum and dad investors deserve the full picture so they can make a call that's right for their family.</div>
+        <div class="pillar-test">If a reader acted on this and it went sideways, would they feel we misled them?</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">Pillar 03</div>
+        <div class="pillar-title">Grounded</div>
+        <div class="pillar-desc">We cite the ATO. We reference legislation. We use real numbers. Credibility comes from specificity — "the ATO contacted 17,700 funds about concentration risk in 2019" lands differently from "some funds have been flagged". We show our working.</div>
+        <div class="pillar-test">Is every factual claim either commonly verifiable, or linked to a primary source?</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">Pillar 04</div>
+        <div class="pillar-title">Respectful</div>
+        <div class="pillar-desc">These are people who have built businesses, raised families, and made hard decisions all their lives. We never talk down to them, never panic them, never pressure them. We give them what they need to make their own call — and trust them to make it.</div>
+        <div class="pillar-test">Does this treat the reader as a capable adult who is in control of their own future?</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 04 VOCABULARY -->
+  <div class="section">
+    <div class="section-label">04 · Brand Vocabulary</div>
+    <div class="section-title">Language we own — and language we never use</div>
+    <div class="section-desc">The brick-by-brick metaphor runs through our content naturally. These phrases should feel like our way of seeing the world — not a campaign we're running. Use them where they land; never force them.</div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card own">
+        <div class="vocab-card-title">✅ Language we own</div>
+        <div class="vocab-row"><span class="vocab-idea">Building financial security</span><span class="vocab-say">"laying the foundations", "brick by brick", "building something that lasts"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">Making a sound decision</span><span class="vocab-say">"mortaring in the right decision", "making sure each layer is solid"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">Being informed before acting</span><span class="vocab-say">"getting the ground right before you build"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">Concentration risk</span><span class="vocab-say">"putting too much weight on one foundation stone"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">An LRBA stress test</span><span class="vocab-say">"testing whether the structure holds under pressure"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">A compliant investment strategy</span><span class="vocab-say">"the blueprint your fund needs before it can build"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">Seeking licensed advice</span><span class="vocab-say">"bringing in the right tradesperson for the job"</span></div>
+        <div class="vocab-row"><span class="vocab-idea">Rushing into property</span><span class="vocab-say">"pouring the slab before the plans are done"</span></div>
+      </div>
+
+      <div class="vocab-card never">
+        <div class="vocab-card-title">❌ Language we never use</div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"independent" / "impartial" / "unbiased"</div><div class="vocab-banned-why">s.923A legally restricted terms</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"you should" / "we recommend"</div><div class="vocab-banned-why">Crosses into financial advice territory</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"your super is underperforming"</div><div class="vocab-banned-why">ASIC red-flag pressure tactic</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"free super health check"</div><div class="vocab-banned-why">Named in ASIC enforcement actions</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"high returns" / "guaranteed" / "risk-free"</div><div class="vocab-banned-why">Misleading in any investment context</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"our expert team"</div><div class="vocab-banned-why">Implies in-house advice capacity we don't hold</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"turbocharge your super" / "unlock your potential"</div><div class="vocab-banned-why">Promotional — not how builders talk</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"get started on your journey"</div><div class="vocab-banned-why">Sales language — banned under ASIC 26-029MR framing</div></div>
+        <div class="vocab-row-banned"><div class="vocab-banned-phrase">"act now" / "don't wait"</div><div class="vocab-banned-why">Urgency tactic — ASIC red-flag</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 05 VOICE IN PRACTICE -->
+  <div class="section">
+    <div class="section-label">05 · Voice in Practice</div>
+    <div class="section-title">Five scenarios, before and after</div>
+    <div class="section-desc">Real examples for the situations BrickSuper content writers encounter most often.</div>
+
+    <div class="voice-scenario-title">Explaining a complex concept</div>
+    <div class="voice-pair">
+      <div class="voice-card do-card">
+        <div class="voice-badge">✅ Write this</div>
+        <div class="voice-text">"A limited recourse borrowing arrangement — an LRBA — lets your SMSF borrow money to buy a single asset, usually property. Think of it like the structural scaffold that lets you add a storey before it's fully paid off. 'Limited recourse' means if the loan goes bad, the lender can only claim the bare trust asset — not the rest of what your fund has built. That's the protection. The risk is the weight: an LRBA adds repayment pressure and concentration to a fund that may already be carrying both."</div>
+        <div class="voice-note">Defines the term plainly, uses a natural structural metaphor, pairs the protection with the risk immediately. No recommendation made.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <div class="voice-badge">❌ Not this</div>
+        <div class="voice-text">"LRBAs are a powerful tool savvy SMSF trustees use to turbocharge their portfolio. Ask our team how to make your super work harder."</div>
+        <div class="voice-note">Promotional framing, implies advice, "our team" implies in-house advice capacity, no risk mentioned.</div>
+      </div>
+    </div>
+
+    <div class="voice-scenario-title">Describing risk honestly</div>
+    <div class="voice-pair">
+      <div class="voice-card do-card">
+        <div class="voice-badge">✅ Write this</div>
+        <div class="voice-text">"Putting 90% or more of your fund into one property is a bit like building your whole retirement on a single foundation stone. The ATO wrote to 17,700 trustees about exactly this in 2019. It's not illegal — but your investment strategy needs to explain in writing why it makes sense for your fund. That documentation is the mortar that holds it together if questions are ever asked."</div>
+        <div class="voice-note">Specific ATO citation, uses the foundation metaphor naturally, factual without being alarmist, directs to action without giving advice.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <div class="voice-badge">❌ Not this</div>
+        <div class="voice-text">"Some people worry about concentration, but with the right strategy your SMSF property investment can be a cornerstone of your retirement."</div>
+        <div class="voice-note">Dismisses a material compliance risk, implies BrickSuper can help find "the right strategy" — which is advice.</div>
+      </div>
+    </div>
+
+    <div class="voice-scenario-title">Presenting tool output</div>
+    <div class="voice-pair">
+      <div class="voice-card do-card">
+        <div class="voice-badge">✅ Write this</div>
+        <div class="voice-text">"Based on what you've entered, your monthly repayment would be around $3,840 at current rates. Your projected rent is $3,200 — so there's a $640 gap each month the fund needs to cover. If rates rise 2%, that gap grows to $1,280. These are the load-bearing numbers to take to your adviser before anything else."</div>
+        <div class="voice-note">Purely mathematical, stress-test included, closes with an adviser referral framed as practical next step — not a recommendation.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <div class="voice-badge">❌ Not this</div>
+        <div class="voice-text">"Great news! Your fund looks well-placed for this property. Get connected with one of our specialists to lock this in."</div>
+        <div class="voice-note">Implies a suitability determination, uses urgency language, "lock this in" is pressure framing.</div>
+      </div>
+    </div>
+
+    <div class="voice-scenario-title">Connecting a reader with an adviser</div>
+    <div class="voice-pair">
+      <div class="voice-card do-card">
+        <div class="voice-badge">✅ Write this</div>
+        <div class="voice-text">"If you'd like to sit down with a licensed SMSF specialist and work through the numbers properly, we can make that introduction. We earn a fixed referral fee for the connection — the same amount regardless of what advice you receive or what you decide to do next. The next move is always yours."</div>
+        <div class="voice-note">Transparent about the commercial arrangement, preserves autonomy, no pressure, no urgency.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <div class="voice-badge">❌ Not this</div>
+        <div class="voice-text">"Ready to take the next step? Our expert partners are standing by to help you get started on your SMSF property journey."</div>
+        <div class="voice-note">Urgency framing, "our experts" implies in-house advice, no fee disclosure, contains two banned phrases.</div>
+      </div>
+    </div>
+
+    <div class="voice-scenario-title">Flagging a high-risk scenario</div>
+    <div class="voice-pair">
+      <div class="voice-card do-card">
+        <div class="voice-badge">✅ Write this</div>
+        <div class="voice-text">"What you've entered puts this property at 94% of your fund's assets after purchase. That's a lot of weight on one foundation stone. The ATO monitors funds at this concentration level, and your investment strategy will need to document — in writing, before you proceed — why that structure is right for your circumstances. A licensed adviser should review that before you go any further."</div>
+        <div class="voice-note">Uses the foundation metaphor naturally, factual, cites regulatory trigger, directs to required action without BrickSuper advising.</div>
+      </div>
+      <div class="voice-card dont-card">
+        <div class="voice-badge">❌ Not this</div>
+        <div class="voice-text">"Your concentration is a little high, but many SMSF investors hold property as their main asset. Worth a chat with a professional."</div>
+        <div class="voice-note">Minimises a material compliance risk, vague about what action is actually required, provides false reassurance.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 06 CHANNEL GUIDANCE -->
+  <div class="section">
+    <div class="section-label">06 · Channel Guidance</div>
+    <div class="section-title">Voice by channel</div>
+    <div class="section-desc">The core voice stays constant. Delivery adjusts by context.</div>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="channel-title"><span class="ch-tag">Web</span> Pillar content</div>
+        <ul class="channel-list">
+          <li>Lead with what the reader needs to know — not a hook designed to pull them in</li>
+          <li>Subheadings answer questions directly: "What does 'wholly and exclusively' actually mean?"</li>
+          <li>Cite legislation by section number on first reference; plain English from there</li>
+          <li>Every benefit is followed by its corresponding risk</li>
+          <li>Close sections with "Questions to raise with your licensed adviser" — never advice</li>
+          <li>Brick-by-brick language where it fits naturally; never forced</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="channel-title"><span class="ch-tag">Email</span> Nurture sequence</div>
+        <ul class="channel-list">
+          <li>Subject lines are specific and useful — not clickbait</li>
+          <li>One idea per email. Never bundle.</li>
+          <li>Opening line: the most valuable thing in the email — no pleasantries</li>
+          <li>Tone is a knowledgeable friend, not a financial firm's newsletter</li>
+          <li>Never personalise to the point it sounds like advice</li>
+          <li>Every email closes with the general information disclaimer</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="channel-title"><span class="ch-tag">Tools</span> UI copy</div>
+        <ul class="channel-list">
+          <li>Labels describe what the field does — not what we want the user to feel</li>
+          <li>Output copy states what numbers mean, not what the reader should do</li>
+          <li>Risk flags are calm and steady: "This is worth pausing on" not "WARNING"</li>
+          <li>Disclaimer sits above the inputs, prominently — not buried below the output</li>
+          <li>"Before you build on this, here's what the numbers say" works well here</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="channel-title"><span class="ch-tag">Downloads</span> Lead magnets</div>
+        <ul class="channel-list">
+          <li>Title: specific and functional — "Pre-Purchase Checklist — 32 items"</li>
+          <li>First page: full disclaimer before any content begins</li>
+          <li>CTAs inside: "Discuss this with your licensed adviser" — never "Contact us"</li>
+          <li>Abbreviated disclaimer in the footer of every page</li>
+          <li>Tone is a working document a builder would use on site — practical, no filler</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 07 COMPLIANCE -->
+  <div class="section">
+    <div class="section-label">07 · Compliance Mapping</div>
+    <div class="section-title">Why the rules exist</div>
+    <div class="section-desc">Each compliance obligation maps directly to a voice decision. This is the legal framework behind every writing choice.</div>
+
+    <table class="comp-table">
+      <thead><tr><th>Compliance rule</th><th>What it means for how we write</th></tr></thead>
+      <tbody>
+        <tr><td>ASIC RG 244 — factual information safe harbour</td><td>We state facts, not opinions. "The ATO safe harbour rate is 8.95%" — not "8.95% is a competitive rate."</td></tr>
+        <tr><td>Westpac v ASIC (2021 HCA 3) — disclaimers alone don't save you</td><td>Tool outputs must be substantively factual. The substance of what we say matters as much as the disclaimer on top of it.</td></tr>
+        <tr><td>s.923A — restricted terms</td><td>Never use "independent", "impartial", or "unbiased" anywhere — not even in passing.</td></tr>
+        <tr><td>s.963L — conflicted remuneration</td><td>Disclose the referral fee in plain language, before any lead form. Not in the footer. Before.</td></tr>
+        <tr><td>ASIC 26-029MR — pressure tactics</td><td>No urgency language. No performance claims. No pressure in CTAs. This is how builders talk — not how salespeople talk.</td></tr>
+        <tr><td>SIS Act — sole purpose test</td><td>An SMSF exists to provide retirement benefits — not to hold property. Never imply otherwise.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" style="margin-top:4rem;">
+
+  <!-- 08 CHECKLIST -->
+  <div class="section">
+    <div class="section-label">08 · Pre-publish Checklist</div>
+    <div class="section-title">Before you hit publish</div>
+    <div class="section-desc">Run every piece of content through this. When in doubt, escalate for compliance review.</div>
+
+    <div class="checklist">
+      <div class="checklist-item"><div class="check"></div>Does it make any claim that could be read as financial advice?</div>
+      <div class="checklist-item"><div class="check"></div>Does it use any prohibited words or phrases?</div>
+      <div class="checklist-item"><div class="check"></div>Is every benefit paired with a corresponding risk or honest caveat?</div>
+      <div class="checklist-item"><div class="check"></div>Are all factual claims verifiable and cited where appropriate?</div>
+      <div class="checklist-item"><div class="check"></div>Does it treat the reader as a capable adult making their own decision?</div>
+      <div class="checklist-item"><div class="check"></div>Does it carry the right disclaimer for its context — page, tool, form, or download?</div>
+      <div class="checklist-item"><div class="check"></div>Does any CTA imply BrickSuper is recommending a course of action?</div>
+      <div class="checklist-item"><div class="check"></div>If there's a lead form, is the referral fee disclosed before submission?</div>
+      <div class="checklist-item"><div class="check"></div>Does any tool output read like a suitability determination?</div>
+      <div class="checklist-item"><div class="check"></div>Has a second reader checked for tone drift — anything that sounds promotional, urgent, or sales-driven?</div>
+      <div class="checklist-item"><div class="check"></div>Does the brick-by-brick language feel natural here, or forced? If forced, remove it.</div>
+    </div>
+  </div>
+
+  <div class="metaphor-note">
+    <div class="metaphor-note-title">A note on the metaphor</div>
+    <p>The brick-by-brick idea is powerful because it's <em>true</em>. Building financial security through property takes time, planning, and the right foundations. But like any good building metaphor — don't overdo it.</p>
+    <p>One well-placed reference per piece of content is enough. The goal is for it to feel like our natural way of seeing the world, not a marketing campaign we're running.</p>
+    <p><em>When it works, it works quietly. The reader feels it more than they notice it.</em></p>
+  </div>
+
+  <div class="cta-block">
+    <h3>Questions about brand voice?</h3>
+    <p>All content requires compliance sign-off before publication. Co-branded materials require brand team review. When in doubt, err on the side of factual — and refer the reader to a licensed adviser.</p>
+    <button class="btn-primary">Contact the brand team</button>
+    <div class="cta-meta">BrickSuper Brand Voice Guide v1.1 · March 2026 · Review due September 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

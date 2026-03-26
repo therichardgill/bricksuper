@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Brand: Primary ─────────────────────── */
+  --bs-orange: #E8611A;
+  --bs-orange-dark: #C44E10;
+  --bs-orange-900: #922E04;
+  --bs-orange-light: #F4924E;
+  --bs-orange-pale: #FDF0E8;
+  --bs-orange-mid: #FAD5BC;
+
+  /* ── Brand: Neutrals ────────────────────── */
+  --bs-charcoal: #1C1C1E;
+  --bs-slate: #3D3D4A;
+  --bs-mid: #6B6B7A;
+  --bs-muted: #9B9BAA;
+  --bs-border: #E2E1EC;
+  --bs-bg: #FAFAF8;
+  --bs-white: #FFFFFF;
+
+  /* ── Brand: Semantic ────────────────────── */
+  --bs-green: #1A7A4A;
+  --bs-green-pale: #E8F5EE;
+  --bs-green-dark: #14542F;
+  --bs-amber: #C4780E;
+  --bs-amber-pale: #FDF3E0;
+  --bs-red: #B03020;
+  --bs-red-pale: #FCEEEB;
+  --bs-red-dark: #7A2015;
+
+  /* ── Shadcn/Tailwind mapping ────────────── */
+  --background: var(--bs-bg);
+  --foreground: var(--bs-charcoal);
+  --primary: var(--bs-orange);
+  --primary-foreground: var(--bs-white);
+  --secondary: #F5F5F3;
+  --secondary-foreground: var(--bs-charcoal);
+  --muted: #F5F5F3;
+  --muted-foreground: var(--bs-mid);
+  --accent: var(--bs-orange-pale);
+  --accent-foreground: var(--bs-charcoal);
+  --destructive: var(--bs-red);
+  --border: var(--bs-border);
+  --input: var(--bs-border);
+  --ring: var(--bs-orange);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand colours as Tailwind utilities */
+  --color-bs-orange: var(--bs-orange);
+  --color-bs-orange-dark: var(--bs-orange-dark);
+  --color-bs-orange-pale: var(--bs-orange-pale);
+  --color-bs-charcoal: var(--bs-charcoal);
+  --color-bs-slate: var(--bs-slate);
+  --color-bs-mid: var(--bs-mid);
+  --color-bs-muted: var(--bs-muted);
+  --color-bs-green: var(--bs-green);
+  --color-bs-green-pale: var(--bs-green-pale);
+  --color-bs-amber: var(--bs-amber);
+  --color-bs-amber-pale: var(--bs-amber-pale);
+  --color-bs-red: var(--bs-red);
+  --color-bs-red-pale: var(--bs-red-pale);
+
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-dm-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius));
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
