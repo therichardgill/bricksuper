@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans } from "next/font/google";
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -43,7 +44,7 @@ export default function RootLayout({
       className={`${dmSerif.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        {children}
+        <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>
   );

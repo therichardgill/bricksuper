@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Disclaimer } from "@/components/brand/disclaimer";
 import { Loader2 } from "lucide-react";
 import type { QuizResult } from "@/lib/quiz-data";
+import { DISCLAIMER_FORM } from "@/lib/constants";
 
 const leadSchema = z.object({
   firstName: z.string().check(
@@ -49,26 +50,39 @@ export function QuizLeadGate({
 
   const wantsSpecialist = watch("wantsSpecialist");
 
+  // Convex mutation will be wired once `npx convex dev` generates types.
+  // Until then, the lead data is logged to console for testing.
   async function onSubmit(data: LeadFormData) {
     if (isSubmitting) return; // Double-submit prevention
     setIsSubmitting(true);
 
     try {
-      // TODO: Wire up to Convex mutation (submitQuizLead)
-      // For now, simulate submission
-      console.log("Lead submission:", {
-        ...data,
+      // Lead payload matches the Convex submitQuizLead mutation shape
+      const leadPayload = {
+        email: data.email,
+        firstName: data.firstName,
+        phone: data.phone || undefined,
+        wantsSpecialistConnection: data.wantsSpecialist,
         tier: result.tier,
-        totalScore: result.totalScore,
-        answers,
-        durationSeconds,
-      });
+        fundBalanceRange: answers["balance"],
+        primaryInterest: answers["property-type"],
+        timeline: answers["timeline"],
+        isBusinessOwner: answers["business-owner"] === "yes",
+        hasExistingSmsf: answers["has-smsf"] === "yes",
+        hasExistingAdviser: answers["has-adviser"] === "yes",
+        source: "quiz",
+        consentText: DISCLAIMER_FORM,
+        privacyPolicyVersion: "1.0",
+      };
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // TODO: Replace with useMutation(api.leads.submitQuizLead) once Convex is connected
+      console.log("[BrickSuper] Lead submission payload:", leadPayload);
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
       onComplete();
-    } catch {
+    } catch (err) {
+      console.error("Lead submission failed:", err);
       setIsSubmitting(false);
-      // TODO: Show toast error
     }
   }
 
