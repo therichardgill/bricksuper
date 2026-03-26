@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "bricksuper": {
+      "command": "npx",
+      "args": ["tsx", "mcp/server.ts"],
+      "env": {
+        "CONVEX_URL": "${NEXT_PUBLIC_CONVEX_URL}"
+      }
+    }
+  }
+}
