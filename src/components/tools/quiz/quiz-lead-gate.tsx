@@ -7,6 +7,8 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Disclaimer } from "@/components/brand/disclaimer";
 import { Loader2 } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 import type { QuizResult } from "@/lib/quiz-data";
 import { DISCLAIMER_FORM } from "@/lib/constants";
 
@@ -50,15 +52,14 @@ export function QuizLeadGate({
 
   const wantsSpecialist = watch("wantsSpecialist");
 
-  // Convex mutation will be wired once `npx convex dev` generates types.
-  // Until then, the lead data is logged to console for testing.
+  const submitLead = useMutation(api.leads.submitQuizLead);
+
   async function onSubmit(data: LeadFormData) {
     if (isSubmitting) return; // Double-submit prevention
     setIsSubmitting(true);
 
     try {
-      // Lead payload matches the Convex submitQuizLead mutation shape
-      const leadPayload = {
+      await submitLead({
         email: data.email,
         firstName: data.firstName,
         phone: data.phone || undefined,
@@ -73,11 +74,7 @@ export function QuizLeadGate({
         source: "quiz",
         consentText: DISCLAIMER_FORM,
         privacyPolicyVersion: "1.0",
-      };
-
-      // TODO: Replace with useMutation(api.leads.submitQuizLead) once Convex is connected
-      console.log("[BrickSuper] Lead submission payload:", leadPayload);
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      });
 
       onComplete();
     } catch (err) {

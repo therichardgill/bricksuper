@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, query, internalAction } from "./_generated/server";
+import { mutation, internalQuery, internalMutation, internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 
 export const submitQuizLead = mutation({
@@ -238,14 +238,14 @@ export const routeToPartner = internalAction({
 });
 
 // Internal helpers used by the action
-export const getLeadInternal = query({
+export const getLeadInternal = internalQuery({
   args: { leadId: v.id("leads") },
   handler: async (ctx, { leadId }) => {
     return await ctx.db.get(leadId);
   },
 });
 
-export const getActivePartnersInternal = query({
+export const getActivePartnersInternal = internalQuery({
   args: {},
   handler: async (ctx) => {
     return await ctx.db
@@ -255,7 +255,7 @@ export const getActivePartnersInternal = query({
   },
 });
 
-export const updateLeadRouting = mutation({
+export const updateLeadRouting = internalMutation({
   args: {
     leadId: v.id("leads"),
     partnerId: v.id("partnerFirms"),
@@ -268,7 +268,7 @@ export const updateLeadRouting = mutation({
   },
 });
 
-export const logAudit = mutation({
+export const logAudit = internalMutation({
   args: {
     leadId: v.id("leads"),
     action: v.string(),
@@ -284,7 +284,7 @@ export const logAudit = mutation({
   },
 });
 
-export const incrementPartnerLeadCount = mutation({
+export const incrementPartnerLeadCount = internalMutation({
   args: { partnerId: v.id("partnerFirms") },
   handler: async (ctx, { partnerId }) => {
     const partner = await ctx.db.get(partnerId);
