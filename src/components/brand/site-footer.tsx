@@ -87,6 +87,14 @@ export function SiteFooter() {
                   Investment Strategy
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/smsf-couples-guide"
+                  className="text-sm text-bs-mid hover:text-bs-charcoal"
+                >
+                  Couples Guide
+                </Link>
+              </li>
             </ul>
           </div>
 

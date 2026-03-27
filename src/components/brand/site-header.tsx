@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: "/lrba-explained", label: "LRBA Explained" },
   { href: "/business-real-property", label: "BRP Guide" },
   { href: "/smsf-investment-strategy", label: "Strategy" },
+  { href: "/smsf-couples-guide", label: "Couples Guide" },
   { href: "/how-were-funded", label: "How We're Funded" },
 ] as const;
 
