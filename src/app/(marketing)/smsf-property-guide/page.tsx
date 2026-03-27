@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     description:
       "Rules, costs, tax treatment, borrowing structures, and exit strategies for SMSF property — explained in plain English.",
     type: "article",
-    url: "https://bricksuper.com.au/smsf-property-guide",
+    url: "https://bricksuper.com/smsf-property-guide",
   },
   other: {
     "script:ld+json": JSON.stringify([
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
         title: "SMSF Property Investment: The Complete Australian Guide",
         description:
           "A plain-English guide to buying property in a Self-Managed Super Fund. Covers SIS Act rules, LRBA borrowing, costs, tax deductions, and common mistakes.",
-        url: "https://bricksuper.com.au/smsf-property-guide",
+        url: "https://bricksuper.com/smsf-property-guide",
         datePublished: ARTICLE_DATE_PUBLISHED,
         dateModified: ARTICLE_DATE_MODIFIED,
         wordCount: 3200,
@@ -616,7 +616,7 @@ export default function SMSFPropertyGuidePage() {
                 "SMSF Property Investment: The Complete Australian Guide",
               description:
                 "A plain-English guide to buying property in a Self-Managed Super Fund.",
-              url: "https://bricksuper.com.au/smsf-property-guide",
+              url: "https://bricksuper.com/smsf-property-guide",
               datePublished: ARTICLE_DATE_PUBLISHED,
               dateModified: ARTICLE_DATE_MODIFIED,
               wordCount: 3200,

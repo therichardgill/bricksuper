@@ -47,12 +47,12 @@ export function generateArticleSchema(input: ArticleSchemaInput): object {
     author: {
       "@type": "Organization",
       name: "BrickSuper",
-      url: "https://bricksuper.com.au",
+      url: "https://bricksuper.com",
     },
     publisher: {
       "@type": "Organization",
       name: "BrickSuper",
-      url: "https://bricksuper.com.au",
+      url: "https://bricksuper.com",
     },
   };
 }
@@ -62,7 +62,7 @@ export function generateOrganizationSchema(): object {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "BrickSuper",
-    url: "https://bricksuper.com.au",
+    url: "https://bricksuper.com",
     description:
       "Educational information about SMSF property investment in Australia.",
   };

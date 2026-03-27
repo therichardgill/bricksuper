@@ -16,7 +16,7 @@ export const revalidate = 86400;
 const PAGE_TITLE = "LRBA Explained: How SMSF Property Borrowing Works";
 const PAGE_DESCRIPTION =
   "A plain-English guide to limited recourse borrowing arrangements (LRBAs) for SMSFs. Structure, lending rates, ATO safe harbour, bare trusts, and key risks.";
-const PAGE_URL = "https://bricksuper.com.au/lrba-explained";
+const PAGE_URL = "https://bricksuper.com/lrba-explained";
 const DATE_PUBLISHED = "2025-07-01";
 const DATE_MODIFIED = "2026-03-27";
 

@@ -240,10 +240,10 @@ export default function PrivacyPage() {
                 <p className="mt-3">
                   To exercise any of these rights, contact us at{" "}
                   <a
-                    href="mailto:privacy@bricksuper.com.au"
+                    href="mailto:privacy@bricksuper.com"
                     className="text-bs-orange hover:underline"
                   >
-                    privacy@bricksuper.com.au
+                    privacy@bricksuper.com
                   </a>
                   . We will respond within 30 days.
                 </p>
@@ -257,10 +257,10 @@ export default function PrivacyPage() {
                   If you believe we have breached the Australian Privacy
                   Principles, you can lodge a complaint with us at{" "}
                   <a
-                    href="mailto:privacy@bricksuper.com.au"
+                    href="mailto:privacy@bricksuper.com"
                     className="text-bs-orange hover:underline"
                   >
-                    privacy@bricksuper.com.au
+                    privacy@bricksuper.com
                   </a>
                   . If you are not satisfied with our response, you can lodge a
                   complaint with the Office of the Australian Information

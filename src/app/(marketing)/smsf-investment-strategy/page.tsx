@@ -46,7 +46,7 @@ const FAQ_ITEMS: FAQItem[] = [
 ];
 
 const PAGE_URL =
-  "https://bricksuper.com.au/smsf-investment-strategy";
+  "https://bricksuper.com/smsf-investment-strategy";
 
 const articleSchema = generateArticleSchema({
   title:

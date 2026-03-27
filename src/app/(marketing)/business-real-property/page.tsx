@@ -59,7 +59,7 @@ const PAGE_TITLE =
   "Business Real Property (BRP) and Your SMSF: The Plain-English Guide";
 const PAGE_DESCRIPTION =
   "What qualifies as business real property under SIS Act s66(5), the 'wholly and exclusively' test from SMSFR 2009/1, lease-back rules, the farm safe harbour, and worked examples. Factual SMSF education — not financial advice.";
-const PAGE_URL = "https://bricksuper.com.au/business-real-property";
+const PAGE_URL = "https://bricksuper.com/business-real-property";
 const DATE_PUBLISHED = "2025-06-15";
 const DATE_MODIFIED = "2026-03-27";
 

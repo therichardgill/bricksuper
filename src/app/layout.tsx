@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description:
     "Educational tools and plain-English guides to help you understand SMSF property investment rules, costs, and risks.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://bricksuper.com.au"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://bricksuper.com"
   ),
   openGraph: {
     type: "website",
