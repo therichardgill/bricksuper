@@ -12,6 +12,12 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import type { QuizResult } from "@/lib/quiz-data";
 import { DISCLAIMER_FORM } from "@/lib/constants";
+import {
+  trackEmailCapture,
+  trackSpecialistRequest,
+  generateEventId,
+} from "@/lib/analytics";
+import { useUTMCapture } from "@/hooks/use-utm-capture";
 
 const leadSchema = z.object({
   firstName: z.string().check(
@@ -54,12 +60,28 @@ export function QuizLeadGate({
   const wantsSpecialist = watch("wantsSpecialist");
 
   const submitLead = useMutation(api.leads.submitQuizLead);
+  const getUTMParams = useUTMCapture();
 
   async function onSubmit(data: LeadFormData) {
     if (isSubmitting) return; // Double-submit prevention
     setIsSubmitting(true);
 
+    const eventId = generateEventId();
+    const utmParams = getUTMParams();
+
     try {
+      // Fire analytics events before the mutation (so Meta Pixel fires browser-side)
+      trackEmailCapture(
+        result.tier,
+        answers["super-balance"],
+        data.email, // GTM handles hashing for Enhanced Conversions
+        eventId,
+      );
+
+      if (data.wantsSpecialist) {
+        trackSpecialistRequest(result.tier, answers["super-balance"], eventId);
+      }
+
       await submitLead({
         email: data.email,
         firstName: data.firstName,
@@ -73,6 +95,8 @@ export function QuizLeadGate({
         hasExistingSmsf: undefined,
         hasExistingAdviser: undefined,
         source: "quiz",
+        eventId,
+        ...utmParams,
         consentText: DISCLAIMER_FORM,
         privacyPolicyVersion: "1.0",
       });

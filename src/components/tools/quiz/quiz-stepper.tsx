@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { QuizQuestion } from "./quiz-question";
 import { useQuiz } from "@/hooks/use-quiz";
@@ -7,9 +8,26 @@ import { QuizResults } from "./quiz-results";
 import { QuizLeadGate } from "./quiz-lead-gate";
 import { Disclaimer } from "@/components/brand/disclaimer";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { trackQuizStart, trackQuizComplete } from "@/lib/analytics";
 
 export function QuizStepper() {
   const quiz = useQuiz();
+  const hasTrackedStart = useRef(false);
+
+  // Fire quiz_start on first render
+  useEffect(() => {
+    if (!hasTrackedStart.current) {
+      trackQuizStart();
+      hasTrackedStart.current = true;
+    }
+  }, []);
+
+  // Fire quiz_complete when results phase is reached
+  useEffect(() => {
+    if (quiz.phase === "results" && quiz.result) {
+      trackQuizComplete(quiz.result.tier, quiz.answers["super-balance"]);
+    }
+  }, [quiz.phase, quiz.result, quiz.answers]);
 
   // Success phase
   if (quiz.phase === "success") {
