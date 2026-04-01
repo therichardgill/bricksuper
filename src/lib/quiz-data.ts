@@ -1,5 +1,5 @@
 /**
- * SMSF Readiness Quiz — 7 questions
+ * SMSF Readiness Quiz — 6 questions
  *
  * Each answer has a score that feeds into tier calculation.
  * Questions collect factual data — no opinion or suitability language.

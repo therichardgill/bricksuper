@@ -34,7 +34,7 @@ export function qualifyLead(input: QualificationInput): QualificationResult {
   }
 
   // 2. Super balance ≥$200K
-  const validBalances = ["200-500k", "500k-1m", "over-1m"];
+  const validBalances = ["200k-300k", "300k-500k", "over-500k"];
   if (
     input.fundBalanceRange &&
     validBalances.includes(input.fundBalanceRange)

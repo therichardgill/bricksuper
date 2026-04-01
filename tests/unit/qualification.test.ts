@@ -4,7 +4,7 @@ import { qualifyLead, type QualificationInput } from "@/lib/qualification";
 describe("qualifyLead", () => {
   const qualifiedInput: QualificationInput = {
     hasExistingSmsf: true,
-    fundBalanceRange: "500k-1m",
+    fundBalanceRange: "300k-500k",
     wantsSpecialistConnection: true,
     timeline: "3-months",
     email: "sarah@example.com.au",
@@ -31,7 +31,7 @@ describe("qualifyLead", () => {
   it("disqualifies when balance below $200K", () => {
     const result = qualifyLead({
       ...qualifiedInput,
-      fundBalanceRange: "under-200k",
+      fundBalanceRange: "under-100k",
     });
     expect(result.isQualified).toBe(false);
     expect(result.failedCriteria).toContain(
@@ -42,7 +42,7 @@ describe("qualifyLead", () => {
   it("qualifies at $200K-$500K boundary", () => {
     const result = qualifyLead({
       ...qualifiedInput,
-      fundBalanceRange: "200-500k",
+      fundBalanceRange: "200k-300k",
     });
     expect(result.isQualified).toBe(true);
   });
@@ -50,7 +50,7 @@ describe("qualifyLead", () => {
   it("qualifies with $1M+ balance", () => {
     const result = qualifyLead({
       ...qualifiedInput,
-      fundBalanceRange: "over-1m",
+      fundBalanceRange: "over-500k",
     });
     expect(result.isQualified).toBe(true);
   });
