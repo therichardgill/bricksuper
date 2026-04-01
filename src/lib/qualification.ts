@@ -5,6 +5,8 @@
  * Unqualified leads go to email nurture only — not billed.
  */
 
+import { VALID_BALANCE_RANGES } from "../../convex/lib/leadTiers";
+
 export interface QualificationInput {
   hasExistingSmsf: boolean | undefined;
   fundBalanceRange: string | undefined;
@@ -34,10 +36,9 @@ export function qualifyLead(input: QualificationInput): QualificationResult {
   }
 
   // 2. Super balance ≥$200K
-  const validBalances = ["200k-300k", "300k-500k", "over-500k"];
   if (
     input.fundBalanceRange &&
-    validBalances.includes(input.fundBalanceRange)
+    (VALID_BALANCE_RANGES as readonly string[]).includes(input.fundBalanceRange)
   ) {
     passed.push("Fund balance ≥$200K");
   } else {
@@ -80,7 +81,7 @@ export function qualifyLead(input: QualificationInput): QualificationResult {
     hasValidEmail &&
     hasFirstName &&
     input.fundBalanceRange !== undefined &&
-    validBalances.includes(input.fundBalanceRange);
+    (VALID_BALANCE_RANGES as readonly string[]).includes(input.fundBalanceRange);
 
   return { isQualified, passedCriteria: passed, failedCriteria: failed };
 }

@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, internalQuery, internalMutation, internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { VALID_BALANCE_RANGES } from "./lib/leadTiers";
 
 export const submitQuizLead = mutation({
   args: {
@@ -29,7 +30,11 @@ export const submitQuizLead = mutation({
     utmMedium: v.optional(v.string()),
     utmCampaign: v.optional(v.string()),
     utmContent: v.optional(v.string()),
+    utmTerm: v.optional(v.string()),
     landingPage: v.optional(v.string()),
+
+    // Meta CAPI deduplication
+    eventId: v.optional(v.string()),
 
     // Consent
     consentText: v.string(),
@@ -65,13 +70,12 @@ export const submitQuizLead = mutation({
     }
 
     // Qualify the lead
-    const validBalances = ["200k-300k", "300k-500k", "over-500k"];
     const isQualified =
       args.wantsSpecialistConnection &&
       args.email.includes("@") &&
       args.firstName.trim().length > 0 &&
       args.fundBalanceRange !== undefined &&
-      validBalances.includes(args.fundBalanceRange);
+      (VALID_BALANCE_RANGES as readonly string[]).includes(args.fundBalanceRange);
 
     const qualificationStatus = isQualified ? "qualified" : "unqualified";
 
@@ -102,7 +106,9 @@ export const submitQuizLead = mutation({
       utmMedium: args.utmMedium,
       utmCampaign: args.utmCampaign,
       utmContent: args.utmContent,
+      utmTerm: args.utmTerm,
       landingPage: args.landingPage,
+      eventId: args.eventId,
 
       consentGiven: true,
       consentTimestamp: now,
@@ -139,6 +145,12 @@ export const submitQuizLead = mutation({
         leadId,
       });
     }
+
+    // Send Meta CAPI for ALL leads (not just qualified) so Meta can optimize the full funnel
+    await ctx.scheduler.runAfter(0, internal.leads.sendMetaCAPI, {
+      leadId,
+      eventId: args.eventId,
+    });
 
     return { leadId, isNew: true, qualificationStatus };
   },
@@ -280,6 +292,115 @@ export const logAudit = internalMutation({
       action: args.action,
       details: args.details,
       createdAt: Date.now(),
+    });
+  },
+});
+
+/**
+ * Meta Conversions API (CAPI) — server-side event for attribution.
+ *
+ * Fires for ALL leads so Meta can optimize the full funnel.
+ * Uses shared event_id with browser pixel for deduplication.
+ *
+ *   submitQuizLead ──► scheduler ──► sendMetaCAPI
+ *                                        │
+ *                                        ▼
+ *                                   POST graph.facebook.com/{version}/{pixel}/events
+ *                                   Retry: 3x with exponential backoff
+ *                                   Audit: success/failure logged
+ */
+export const sendMetaCAPI = internalAction({
+  args: {
+    leadId: v.id("leads"),
+    eventId: v.optional(v.string()),
+  },
+  handler: async (ctx, { leadId, eventId }) => {
+    const pixelId = process.env.META_PIXEL_ID;
+    const accessToken = process.env.META_ACCESS_TOKEN;
+    const apiVersion = process.env.META_API_VERSION || "v21.0";
+
+    if (!pixelId || !accessToken) {
+      await ctx.runMutation(internal.leads.logAudit, {
+        leadId,
+        action: "meta_capi_skipped",
+        details: "META_PIXEL_ID or META_ACCESS_TOKEN not configured",
+      });
+      return;
+    }
+
+    const lead = await ctx.runQuery(internal.leads.getLeadInternal, { leadId });
+    if (!lead) return;
+
+    const hashValue = async (value: string) => {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(value.toLowerCase().trim());
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    };
+
+    const hashedEmail = await hashValue(lead.email);
+    const hashedPhone = lead.phone ? await hashValue(lead.phone) : undefined;
+
+    const payload = {
+      data: [
+        {
+          event_name: "Lead",
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: eventId,
+          action_source: "website",
+          user_data: {
+            em: [hashedEmail],
+            ...(hashedPhone ? { ph: [hashedPhone] } : {}),
+          },
+          custom_data: {
+            lead_tier: lead.tier,
+            fund_balance_range: lead.fundBalanceRange,
+            currency: "AUD",
+            value: lead.tier === "tier3" ? 300 : lead.tier === "tier2" ? 150 : 0,
+          },
+        },
+      ],
+      ...(process.env.META_TEST_EVENT_CODE
+        ? { test_event_code: process.env.META_TEST_EVENT_CODE }
+        : {}),
+    };
+
+    const url = `https://graph.facebook.com/${apiVersion}/${pixelId}/events?access_token=${accessToken}`;
+    let success = false;
+    let lastError = "";
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          success = true;
+          break;
+        }
+        lastError = `HTTP ${response.status}: ${await response.text()}`;
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : "Unknown network error";
+      }
+
+      if (attempt < 2) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 * Math.pow(2, attempt))
+        );
+      }
+    }
+
+    await ctx.runMutation(internal.leads.logAudit, {
+      leadId,
+      action: success ? "meta_capi_sent" : "meta_capi_failed",
+      details: success
+        ? `CAPI event sent (event_id: ${eventId || "none"})`
+        : `CAPI failed after 3 attempts: ${lastError}`,
     });
   },
 });
