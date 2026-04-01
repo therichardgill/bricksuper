@@ -65,7 +65,7 @@ export const submitQuizLead = mutation({
     }
 
     // Qualify the lead
-    const validBalances = ["200-500k", "500k-1m", "over-1m"];
+    const validBalances = ["200k-300k", "300k-500k", "over-500k"];
     const isQualified =
       args.wantsSpecialistConnection &&
       args.email.includes("@") &&

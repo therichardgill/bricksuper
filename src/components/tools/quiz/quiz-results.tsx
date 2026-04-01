@@ -23,8 +23,8 @@ function generateFlags(answers: Record<string, string>): ResultFlag[] {
   const flags: ResultFlag[] = [];
 
   // Balance flag
-  const balance = answers["balance"];
-  if (balance === "over-1m" || balance === "500k-1m") {
+  const balance = answers["super-balance"];
+  if (balance === "over-500k" || balance === "300k-500k") {
     flags.push({
       flag: "Fund balance",
       level: "green",
@@ -33,7 +33,7 @@ function generateFlags(answers: Record<string, string>): ResultFlag[] {
       source:
         "University of Adelaide SMSF research (Feb 2025) — SMSFs with ≥$200K achieve competitive returns",
     });
-  } else if (balance === "200-500k") {
+  } else if (balance === "200k-300k") {
     flags.push({
       flag: "Fund balance",
       level: "amber",
@@ -52,51 +52,22 @@ function generateFlags(answers: Record<string, string>): ResultFlag[] {
   }
 
   // Concentration flag
-  const propertyType = answers["property-type"];
-  if (propertyType && propertyType !== "not-sure") {
-    flags.push({
-      flag: "Concentration risk",
-      level: balance === "under-200k" ? "red" : "amber",
-      description:
-        "Adding property could result in a significant portion of your fund being in a single asset. The ATO wrote to 17,700 trustees about concentration risk in 2019.",
-      source: "ATO concentration risk campaign, 2019",
-    });
-  }
+  flags.push({
+    flag: "Concentration risk",
+    level: balance === "under-100k" || balance === "100k-200k" ? "red" : "amber",
+    description:
+      "Adding property to an SMSF can result in a significant portion of your fund being in a single asset. The ATO wrote to 17,700 trustees about concentration risk in 2019.",
+    source: "ATO concentration risk campaign, 2019",
+  });
 
-  // Adviser flag
-  if (answers["has-adviser"] === "yes") {
-    flags.push({
-      flag: "Professional support",
-      level: "green",
-      description:
-        "You indicated you work with a financial adviser or accountant — they can help assess SMSF suitability for your circumstances.",
-    });
-  } else {
-    flags.push({
-      flag: "Professional support",
-      level: "amber",
-      description:
-        "You indicated you don't currently work with a financial adviser. SMSF establishment involves complex legal and tax obligations — professional guidance is important.",
-    });
-  }
-
-  // Compliance comfort flag
-  if (answers["compliance-comfort"] === "very") {
-    flags.push({
-      flag: "Compliance readiness",
-      level: "green",
-      description:
-        "You indicated comfort with ongoing trustee compliance responsibilities.",
-    });
-  } else {
-    flags.push({
-      flag: "Compliance readiness",
-      level: "amber",
-      description:
-        "SMSF trustees have ongoing legal obligations including annual audits, investment strategy reviews, and ATO reporting. Administrative penalties of $4,200 per trustee can apply for non-compliance.",
-      source: "SIS Regulation 4.09",
-    });
-  }
+  // Compliance flag (always show as an educational warning for prospective trustees)
+  flags.push({
+    flag: "Compliance readiness",
+    level: "amber",
+    description:
+      "SMSF trustees have ongoing legal obligations including annual audits, investment strategy reviews, and ATO reporting. Administrative penalties of $4,200 per trustee can apply for non-compliance.",
+    source: "SIS Regulation 4.09",
+  });
 
   return flags;
 }
@@ -106,18 +77,20 @@ function generateAdviserQuestions(
 ): string[] {
   const questions: string[] = [];
 
-  if (answers["property-type"] === "business-premises") {
+  if (answers["employment-status"] === "business-owner") {
     questions.push(
-      "Does this property qualify as business real property under SIS Act s66(5)?"
+      "If I want to purchase commercial premises for my business, does it qualify as business real property under SIS Act s66(5)?"
     );
     questions.push(
       "What are the lease-back arrangement requirements if my business will occupy the premises?"
     );
   }
 
+  const balance = answers["super-balance"];
   if (
-    answers["balance"] === "200-500k" ||
-    answers["balance"] === "under-200k"
+    balance === "100k-200k" ||
+    balance === "under-100k" ||
+    balance === "200k-300k"
   ) {
     questions.push(
       "Given my fund balance, how would SMSF administration costs impact my net returns compared to my current super fund?"
@@ -131,14 +104,12 @@ function generateAdviserQuestions(
     "What concentration risk implications should I consider given my current asset mix?"
   );
 
-  if (answers["property-type"] === "commercial" || answers["property-type"] === "residential") {
-    questions.push(
-      "Would an LRBA be required, and how does the safe harbour rate (8.85%) compare to current market rates (~6.5%)?"
-    );
-  }
+  questions.push(
+    "If I am borrowing to invest, how does the LRBA safe harbour rate (8.95%) compare to current market rates (~6.5%)?"
+  );
 
   questions.push(
-    "How should my investment strategy be updated to document this decision per SIS Regulation 4.09?"
+    "How should my investment strategy document this decision per SIS Regulation 4.09?"
   );
 
   return questions;

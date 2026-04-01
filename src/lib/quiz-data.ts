@@ -19,66 +19,59 @@ export interface QuizQuestion {
 
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
-    id: "has-smsf",
-    text: "Do you currently have a self-managed super fund (SMSF)?",
+    id: "super-balance",
+    text: "How much do you currently have in super?",
     options: [
-      { value: "yes", label: "Yes", score: 3 },
-      { value: "considering", label: "No, but I'm considering one", score: 2 },
-      { value: "researching", label: "No, just researching", score: 1 },
+      { value: "under-100k", label: "Under $100,000", score: 0 },
+      { value: "100k-200k", label: "$100,000–$200,000", score: 1 },
+      { value: "200k-300k", label: "$200,000–$300,000", score: 2 },
+      { value: "300k-500k", label: "$300,000–$500,000", score: 3 },
+      { value: "over-500k", label: "$500,000+", score: 4 },
     ],
   },
   {
-    id: "balance",
-    text: "What is the approximate total balance of your super (or the super you're considering rolling into an SMSF)?",
+    id: "employment-status",
+    text: "What is your current employment status?",
     options: [
-      { value: "under-200k", label: "Under $200,000", score: 0 },
-      { value: "200-500k", label: "$200,000 – $500,000", score: 2 },
-      { value: "500k-1m", label: "$500,000 – $1,000,000", score: 3 },
-      { value: "over-1m", label: "Over $1,000,000", score: 3 },
+      { value: "payg", label: "PAYG employee", score: 1 },
+      { value: "self-employed", label: "Self-employed", score: 2 },
+      { value: "business-owner", label: "Business owner", score: 3 },
     ],
   },
   {
-    id: "business-owner",
-    text: "Are you a business owner?",
+    id: "household-income",
+    text: "What is your approximate household income?",
+    options: [
+      { value: "under-80k", label: "Under $80,000", score: 0 },
+      { value: "80k-150k", label: "$80,000–$150,000", score: 1 },
+      { value: "over-150k", label: "$150,000+", score: 2 },
+    ],
+  },
+  {
+    id: "owns-property",
+    text: "Do you currently own property?",
     options: [
       { value: "yes", label: "Yes", score: 2 },
       { value: "no", label: "No", score: 0 },
     ],
   },
   {
-    id: "property-type",
-    text: "What type of property are you considering for your SMSF?",
+    id: "primary-goal",
+    text: "What is your primary goal?",
     options: [
-      { value: "commercial", label: "Commercial property", score: 2 },
-      { value: "residential", label: "Residential property", score: 1 },
-      { value: "business-premises", label: "My own business premises", score: 3 },
-      { value: "not-sure", label: "Not sure yet", score: 0 },
+      { value: "build-security", label: "Building financial security", score: 1 },
+      { value: "retirement-planning", label: "Planning for retirement", score: 1 },
+      { value: "passive-income", label: "Creating passive income", score: 1 },
     ],
   },
   {
     id: "timeline",
-    text: "How soon are you looking to purchase property through an SMSF?",
+    text: "When are you looking to invest?",
     options: [
-      { value: "3-months", label: "Within 3 months", score: 3 },
-      { value: "3-12-months", label: "3–12 months", score: 2 },
-      { value: "exploring", label: "Just exploring", score: 1 },
-    ],
-  },
-  {
-    id: "has-adviser",
-    text: "Do you currently work with a financial adviser or accountant for your super?",
-    options: [
-      { value: "yes", label: "Yes", score: 2 },
-      { value: "no", label: "No", score: 0 },
-    ],
-  },
-  {
-    id: "compliance-comfort",
-    text: "How comfortable are you with the ongoing compliance responsibilities of running an SMSF?",
-    options: [
-      { value: "very", label: "Very comfortable — I understand the obligations", score: 2 },
-      { value: "somewhat", label: "Somewhat — I have a general idea", score: 1 },
-      { value: "not-sure", label: "Not sure — I'd want to learn more", score: 0 },
+      { value: "asap", label: "ASAP", score: 3 },
+      { value: "3-6-months", label: "3–6 months", score: 2 },
+      { value: "6-12-months", label: "6–12 months", score: 1 },
+      { value: "exploring", label: "Just exploring", score: 0 },
     ],
   },
 ];
@@ -92,10 +85,10 @@ export interface QuizResult {
 }
 
 /**
- * Score the quiz and determine tier.
+ * Score the quiz and determine tier based on the new question set.
  *
- * Tier 1 (not ready): balance < $200K AND no existing SMSF AND no adviser
- * Tier 3 (worth exploring): balance > $500K OR (business owner considering BRP)
+ * Tier 1 (not ready): low balance < $100K or low scores
+ * Tier 3 (worth exploring): balance > $500K OR high income + business owner
  * Tier 2 (questions to explore): everything else
  */
 export function scoreQuiz(answers: Record<string, string>): QuizResult {
@@ -112,22 +105,20 @@ export function scoreQuiz(answers: Record<string, string>): QuizResult {
   }
 
   // Tier 1: Hard triggers for "not ready"
-  const balanceUnder200k = answers["balance"] === "under-200k";
-  const noSmsf = answers["has-smsf"] === "researching";
-  const noAdviser = answers["has-adviser"] === "no";
-
-  if (balanceUnder200k && noSmsf && noAdviser) {
+  const balanceUnder100k = answers["super-balance"] === "under-100k";
+  
+  if (balanceUnder100k) {
     return { tier: "tier1", totalScore, maxScore };
   }
 
   // Tier 3: Strong indicators
   const highBalance =
-    answers["balance"] === "500k-1m" || answers["balance"] === "over-1m";
-  const businessOwnerBRP =
-    answers["business-owner"] === "yes" &&
-    answers["property-type"] === "business-premises";
+    answers["super-balance"] === "300k-500k" || answers["super-balance"] === "over-500k";
+  const highIncomeBizOwner =
+    answers["employment-status"] === "business-owner" &&
+    answers["household-income"] === "over-150k";
 
-  if (highBalance || businessOwnerBRP) {
+  if (highBalance || highIncomeBizOwner) {
     return { tier: "tier3", totalScore, maxScore };
   }
 

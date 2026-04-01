@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Disclaimer } from "@/components/brand/disclaimer";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import type { QuizResult } from "@/lib/quiz-data";
@@ -65,12 +66,12 @@ export function QuizLeadGate({
         phone: data.phone || undefined,
         wantsSpecialistConnection: data.wantsSpecialist,
         tier: result.tier,
-        fundBalanceRange: answers["balance"],
-        primaryInterest: answers["property-type"],
+        fundBalanceRange: answers["super-balance"],
+        primaryInterest: answers["primary-goal"],
         timeline: answers["timeline"],
-        isBusinessOwner: answers["business-owner"] === "yes",
-        hasExistingSmsf: answers["has-smsf"] === "yes",
-        hasExistingAdviser: answers["has-adviser"] === "yes",
+        isBusinessOwner: answers["employment-status"] === "business-owner",
+        hasExistingSmsf: undefined,
+        hasExistingAdviser: undefined,
         source: "quiz",
         consentText: DISCLAIMER_FORM,
         privacyPolicyVersion: "1.0",
@@ -79,6 +80,7 @@ export function QuizLeadGate({
       onComplete();
     } catch (err) {
       console.error("Lead submission failed:", err);
+      toast.error("Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
   }
