@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { Toaster } from "sonner";
@@ -45,6 +47,18 @@ export default function RootLayout({
       lang="en-AU"
       className={`${dmSerif.variable} ${dmSans.variable} h-full antialiased`}
     >
+      {/* CookieYes consent banner — must load before GTM so consent state is available */}
+      {process.env.NEXT_PUBLIC_COOKIEYES_ID && (
+        <Script
+          id="cookieyes"
+          src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIEYES_ID}/script.js`}
+          strategy="beforeInteractive"
+        />
+      )}
+      {/* GTM container — reads CookieYes consent state via Consent Mode v2 */}
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      )}
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <ClerkProvider>
           <ConvexClientProvider>{children}</ConvexClientProvider>
