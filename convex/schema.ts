@@ -42,7 +42,11 @@ export default defineSchema({
     utmMedium: v.optional(v.string()),
     utmCampaign: v.optional(v.string()),
     utmContent: v.optional(v.string()),
+    utmTerm: v.optional(v.string()),
     landingPage: v.optional(v.string()),
+
+    // Meta CAPI deduplication
+    eventId: v.optional(v.string()),
 
     // Routing
     routedToPartnerId: v.optional(v.id("partnerFirms")),

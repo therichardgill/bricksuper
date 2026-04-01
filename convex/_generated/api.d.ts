@@ -10,6 +10,7 @@
 
 import type * as admin from "../admin.js";
 import type * as leads from "../leads.js";
+import type * as lib_leadTiers from "../lib/leadTiers.js";
 import type * as quizResponses from "../quizResponses.js";
 
 import type {
@@ -21,6 +22,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   leads: typeof leads;
+  "lib/leadTiers": typeof lib_leadTiers;
   quizResponses: typeof quizResponses;
 }>;
 
