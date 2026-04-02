@@ -1,11 +1,12 @@
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export default function proxy(request: NextRequest) {
-  // Minimal test proxy — does Vercel run this at all?
-  console.log("[proxy] hit:", request.nextUrl.pathname);
-  return NextResponse.json({ ok: true, path: request.nextUrl.pathname });
-}
+// Test: does clerkMiddleware itself crash, even with an empty handler?
+export default clerkMiddleware(async () => {
+  // Do nothing — just let Clerk process the request
+  console.log("[proxy] clerkMiddleware handler reached");
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: ["/admin(.*)"],
