@@ -46,10 +46,15 @@ export default function RootLayout({
       lang="en-AU"
       className={`${dmSerif.variable} ${dmSans.variable} h-full antialiased`}
     >
+      <head>
+        {/* Cookie consent banner CSS — precedence needed for Next.js 16 head hoisting */}
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <link rel="stylesheet" href="/cookieconsent.css" precedence="default" />
+        )}
+      </head>
       {/* Cookie consent banner + GTM loader — sets consent defaults before loading GTM */}
       {process.env.NEXT_PUBLIC_GTM_ID && (
         <>
-          <link rel="stylesheet" href="/cookieconsent.css" />
           <Script
             id="cookieconsent-config"
             strategy="beforeInteractive"
