@@ -82,7 +82,8 @@ export default function PrivacyPage() {
                     To deliver quiz results and calculator outputs to your email
                   </li>
                   <li>
-                    To connect you with a licensed SMSF specialist, if you opt in
+                    To connect you with a licensed SMSF advisory firm, if you opt
+                    in
                   </li>
                   <li>
                     To send educational email content about SMSF property
@@ -103,9 +104,9 @@ export default function PrivacyPage() {
                   Who we share your information with (APP 6)
                 </h2>
                 <p>
-                  If you opt in to connect with a licensed SMSF specialist, we
-                  share your contact details and quiz/tool results with the
-                  specialist&apos;s licensee (an AFSL holder). We disclose:
+                  If you opt in to connect with a licensed SMSF advisory firm,
+                  we share your contact details and quiz/tool results with that
+                  firm (an AFSL holder). We disclose:
                 </p>
                 <ul className="list-disc pl-6 mt-3 space-y-2">
                   <li>Your first name, email, and phone (if provided)</li>
@@ -116,7 +117,7 @@ export default function PrivacyPage() {
                 <p className="mt-3">
                   We do not sell, rent, or trade your personal information. We do
                   not share your information with anyone other than the specific
-                  specialist you chose to connect with.
+                  advisory firm you chose to connect with.
                 </p>
               </section>
 
