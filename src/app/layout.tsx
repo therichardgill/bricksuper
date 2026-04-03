@@ -47,28 +47,25 @@ export default function RootLayout({
       className={`${dmSerif.variable} ${dmSans.variable} h-full antialiased`}
     >
       <head>
-        {/* Cookie consent banner CSS — precedence needed for Next.js 16 head hoisting */}
+        {/* Cookie consent + GTM: CSS, config, and script must load in <head> before body */}
         {process.env.NEXT_PUBLIC_GTM_ID && (
-          <link rel="stylesheet" href="/cookieconsent.css" precedence="default" />
+          <>
+            <link rel="stylesheet" href="/cookieconsent.css" precedence="default" />
+            <Script
+              id="cookieconsent-config"
+              strategy="beforeInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `window.cookieconsentConfig={gtmId:"${process.env.NEXT_PUBLIC_GTM_ID}"};`,
+              }}
+            />
+            <Script
+              id="cookieconsent"
+              src="/cookieconsent.js"
+              strategy="beforeInteractive"
+            />
+          </>
         )}
       </head>
-      {/* Cookie consent banner + GTM loader — sets consent defaults before loading GTM */}
-      {process.env.NEXT_PUBLIC_GTM_ID && (
-        <>
-          <Script
-            id="cookieconsent-config"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `window.cookieconsentConfig={gtmId:"${process.env.NEXT_PUBLIC_GTM_ID}"};`,
-            }}
-          />
-          <Script
-            id="cookieconsent"
-            src="/cookieconsent.js"
-            strategy="beforeInteractive"
-          />
-        </>
-      )}
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <ClerkProvider>
           <ConvexClientProvider>{children}</ConvexClientProvider>
