@@ -2,6 +2,10 @@ import { v } from "convex/values";
 import { mutation, internalQuery, internalMutation, internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { VALID_BALANCE_RANGES } from "./lib/leadTiers";
+import {
+  sendPartnerNotificationEmail,
+  sendLeadConfirmationEmail,
+} from "./lib/email";
 
 export const submitQuizLead = mutation({
   args: {
@@ -152,6 +156,11 @@ export const submitQuizLead = mutation({
       eventId: args.eventId,
     });
 
+    // Send lead confirmation email
+    await ctx.scheduler.runAfter(0, internal.leads.sendLeadConfirmation, {
+      leadId,
+    });
+
     return { leadId, isNew: true, qualificationStatus };
   },
 });
@@ -183,6 +192,28 @@ export const routeToPartner = internalAction({
       leadId,
       partnerId: partner._id,
     });
+
+    // Send partner notification email
+    await sendPartnerNotificationEmail(
+      ctx,
+      leadId,
+      {
+        firstName: lead.firstName,
+        email: lead.email,
+        phone: lead.phone,
+        tier: lead.tier,
+        fundBalanceRange: lead.fundBalanceRange,
+        primaryInterest: lead.primaryInterest,
+        timeline: lead.timeline,
+        isBusinessOwner: lead.isBusinessOwner,
+        createdAt: lead.createdAt,
+      },
+      {
+        name: partner.name,
+        contactEmail: partner.contactEmail,
+        contactName: partner.contactName,
+      }
+    );
 
     // Send webhook if URL configured
     if (partner.webhookUrl) {
@@ -401,6 +432,26 @@ export const sendMetaCAPI = internalAction({
       details: success
         ? `CAPI event sent (event_id: ${eventId || "none"})`
         : `CAPI failed after 3 attempts: ${lastError}`,
+    });
+  },
+});
+
+/**
+ * Send lead confirmation email via Resend.
+ * Fires for ALL leads after quiz submission.
+ */
+export const sendLeadConfirmation = internalAction({
+  args: { leadId: v.id("leads") },
+  handler: async (ctx, { leadId }) => {
+    const lead = await ctx.runQuery(internal.leads.getLeadInternal, { leadId });
+    if (!lead) return;
+
+    await sendLeadConfirmationEmail(ctx, leadId, {
+      firstName: lead.firstName,
+      email: lead.email,
+      tier: lead.tier,
+      fundBalanceRange: lead.fundBalanceRange,
+      wantsSpecialistConnection: lead.wantsSpecialistConnection,
     });
   },
 });

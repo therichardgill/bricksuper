@@ -59,9 +59,11 @@ export default defineSchema({
     consentText: v.string(),
     privacyPolicyVersion: v.string(),
 
-    // ActiveCampaign
-    activeCampaignContactId: v.optional(v.string()),
-    nurtureSent: v.optional(v.boolean()),
+    // Email
+    confirmationSentAt: v.optional(v.number()),
+    nurtureSentAt: v.optional(v.number()),
+    nurtureStage: v.optional(v.number()),
+    unsubscribedAt: v.optional(v.number()),
 
     // Lifecycle
     createdAt: v.number(),
