@@ -4,7 +4,7 @@ import { internal } from "../_generated/api";
 import { Id } from "../_generated/dataModel";
 import { QuizTier, TIER_CONVERSION_VALUES } from "./leadTiers";
 
-const FROM_EMAIL = "BrickSuper <noreply@bricksuper.com>";
+const FROM_EMAIL = "BrickSuper <hello@mail.bricksuper.com>";
 
 function getResend(): Resend | null {
   const apiKey = process.env.RESEND_API_KEY;
@@ -63,11 +63,27 @@ export async function sendPartnerNotificationEmail(
     timeZone: "Australia/Sydney",
   });
 
+  const plainText = `New qualified lead from BrickSuper
+
+Name: ${lead.firstName}
+Email: ${lead.email}${lead.phone ? `\nPhone: ${lead.phone}` : ""}
+Quiz tier: ${tier} — ${TIER_LABELS[tier]}
+Fund balance: ${lead.fundBalanceRange ?? "Not provided"}
+Interest: ${lead.primaryInterest ?? "Not specified"}
+Timeline: ${lead.timeline ?? "Not specified"}
+Business owner: ${lead.isBusinessOwner ? "Yes" : "No"}
+Estimated value: $${conversionValue} AUD
+Submitted: ${submittedAt} AEST
+
+This lead opted in to connect with a licensed SMSF advisory firm via BrickSuper.
+Please contact them within 24 hours per the partner SLA.`;
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: partner.contactEmail,
       subject: `New SMSF lead: ${lead.firstName} (${tier})`,
+      text: plainText,
       html: `
         <h2>New qualified lead from BrickSuper</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;">
@@ -140,11 +156,37 @@ export async function sendLeadConfirmationEmail(
         <p style="margin:0;color:#333;">If you'd like to discuss your situation with a licensed SMSF advisory firm, you can retake the quiz and opt in on the results page.</p>
       </div>`;
 
+  const specialistText = lead.wantsSpecialistConnection
+    ? "You've opted to connect with a licensed advisory firm. They will be in touch within 24 hours to discuss your situation."
+    : "If you'd like to discuss your situation with a licensed SMSF advisory firm, you can retake the quiz and opt in on the results page.";
+
+  const confirmPlainText = `Hi ${lead.firstName},
+
+Thank you for completing the BrickSuper SMSF Readiness Quiz.
+
+Your result: ${tierLabel}
+
+${tierDescription}
+${lead.fundBalanceRange ? `\nFund balance range: ${lead.fundBalanceRange}` : ""}
+
+${specialistText}
+
+Helpful resources:
+- SMSF Property Investment Guide: https://bricksuper.com/smsf-property-guide
+- LRBA Explained: https://bricksuper.com/lrba-explained
+- LRBA Calculator: https://bricksuper.com/lrba-calculator
+
+---
+BrickSuper provides factual information about SMSF property investment. We do not provide financial advice. This email and the quiz results are general in nature and do not take into account your personal circumstances. Always consult a licensed financial adviser before making investment decisions.
+
+Privacy Policy: https://bricksuper.com/privacy`;
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: lead.email,
       subject: `Your SMSF readiness results — ${tierLabel}`,
+      text: confirmPlainText,
       html: `
         <div style="max-width:600px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1C1C1E;">
           <h2 style="color:#1C1C1E;">Hi ${lead.firstName},</h2>
